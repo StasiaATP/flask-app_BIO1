@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Seminare Reservieren</h2>
+<form method="POST">
+    <div class="mb-3">
+        <label for="seminar" class="form-label">Wählen Sie ein Seminar:</label>
+        <select class="form-select" name="seminar" required>
+            <option value="">Bitte wählen</option>
+            {% for seminar in seminars %}
+            <option value="{{ seminar.id }}">
+                {{ seminar.kursname }} - {{ seminar.datum }} um {{ seminar.uhrzeit }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Reservieren</button>
+</form>
+{% endblock %}

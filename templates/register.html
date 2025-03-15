@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Registrieren</h2>
+<form method="POST">
+    <div class="mb-3">
+        <label for="username" class="form-label">Benutzername</label>
+        <input type="text" class="form-control" id="username" name="username" required>
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Passwort</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+    </div>
+    <div class="mb-3">
+        <label for="sozial_vers_nr" class="form-label">Sozialversicherungsnummer</label>
+        <input type="text" class="form-control" id="sozial_vers_nr" name="sozial_vers_nr" required>
+    </div>
+    <div class="mb-3">
+        <label for="vorname" class="form-label">Vorname</label>
+        <input type="text" class="form-control" id="vorname" name="vorname" required>
+    </div>
+    <div class="mb-3">
+        <label for="nachname" class="form-label">Nachname</label>
+        <input type="text" class="form-control" id="nachname" name="nachname" required>
+    </div>
+    <div class="mb-3">
+        <label for="plz" class="form-label">PLZ</label>
+        <input type="text" class="form-control" id="plz" name="plz" required>
+    </div>
+    <div class="mb-3">
+        <label for="ort" class="form-label">Ort</label>
+        <input type="text" class="form-control" id="ort" name="ort" required>
+    </div>
+    <div class="mb-3">
+        <label for="strasse" class="form-label">Straße</label>
+        <input type="text" class="form-control" id="strasse" name="strasse" required>
+    </div>
+    <div class="mb-3">
+        <label for="hausnr" class="form-label">Hausnummer</label>
+        <input type="text" class="form-control" id="hausnr" name="hausnr" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Registrieren</button>
+</form>
+{% endblock %}

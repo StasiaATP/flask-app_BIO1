@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Ihre Reservierungen</h2>
+    {% if reservations %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Kursname</th>
+                <th scope="col">Datum</th>
+                <th scope="col">Uhrzeit</th>
+                <th scope="col">Aktionen</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reservation in reservations %}
+            <tr>
+                <td>{{ reservation.kursname }}</td>
+                <td>{{ reservation.datum }}</td>
+                <td>{{ reservation.uhrzeit }}</td>
+                <td>
+                    <form action="{{ url_for('stornieren', reservierungsnummer=reservation.reservierungsnummer) }}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Stornieren</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Sie haben keine Reservierungen.</p>
+    {% endif %}
+</div>
+{% endblock %}

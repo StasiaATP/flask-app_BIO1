@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Seminardetails</h2>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ seminar.kursname }}</h5>
+        <p class="card-text">Datum: {{ seminar.datum }}</p>
+        <p class="card-text">Uhrzeit: {{ seminar.uhrzeit }}</p>
+        <p class="card-text">Straße: {{ seminar.strasse }} {{ seminar.hausnr }}, {{ seminar.plz }} {{ seminar.ort }}</p>
+    </div>
+</div>
+{% endblock %}

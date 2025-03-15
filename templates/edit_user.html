@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Benutzerdaten Bearbeiten</h2>
+<form method="POST">
+    <div class="mb-3">
+        <label for="username" class="form-label">Benutzername</label>
+        <input type="text" class="form-control" id="username" name="username" value="{{ current_user.username }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="sozial_vers_nr" class="form-label">Sozialversicherungsnummer</label>
+        <input type="text" class="form-control" id="sozial_vers_nr" name="sozial_vers_nr" value="{{ current_user.person.sozial_vers_nr }}" required readonly>
+    </div>
+    <div class="mb-3">
+        <label for="vorname" class="form-label">Vorname</label>
+        <input type="text" class="form-control" id="vorname" name="vorname" value="{{ current_user.person.vorname }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="nachname" class="form-label">Nachname</label>
+        <input type="text" class="form-control" id="nachname" name="nachname" value="{{ current_user.person.nachname }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="plz" class="form-label">PLZ</label>
+        <input type="text" class="form-control" id="plz" name="plz" value="{{ current_user.person.plz }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="ort" class="form-label">Ort</label>
+        <input type="text" class="form-control" id="ort" name="ort" value="{{ current_user.person.ort }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="strasse" class="form-label">Straße</label>
+        <input type="text" class="form-control" id="strasse" name="strasse" value="{{ current_user.person.strasse }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="hausnr" class="form-label">Hausnummer</label>
+        <input type="text" class="form-control" id="hausnr" name="hausnr" value="{{ current_user.person.hausnr }}" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Ändern</button>
+</form>
+{% endblock %}
