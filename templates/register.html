@@ -40,7 +40,16 @@
         <input type="text" class="form-control" id="hausnr" name="hausnr" required>
         <div class="mb-3">
             <label for="telefonnummer" class="form-label">Telefonnummer</label>
-            <input type="text" class="form-control" id="telefonnummer" name="telefonnummer" required>        
+            <input type="text" class="form-control" id="telefonnummer" name="telefonnummer" required>         
+    </div>
+    <div class="mb-3">
+        <label for="bevorzugter_ausbilder" class="form-label">Bevorzugter Ausbilder</label>
+        <select class="form-select" id="bevorzugter_ausbilder" name="bevorzugter_ausbilder">
+            <option value="">Bitte wählen</option>
+            {% for ausbilder in ausbilder_liste %}
+                <option value="{{ ausbilder.kennzeichnung }}">{{ ausbilder.vorname }} {{ ausbilder.nachname }}</option>
+            {% endfor %}
+        </select>
     </div>
     <button type="submit" class="btn btn-primary">Registrieren</button>
 </form>

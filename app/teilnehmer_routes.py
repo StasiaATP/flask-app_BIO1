@@ -8,7 +8,7 @@ einschließlich Login, Registrierung und Seminarverwaltung.
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
-from app.models import db, User, Teilnehmer, Seminar, Reserviert
+from app.models import db, User, Teilnehmer, Seminar, Reserviert, Ausbilder
 
 # Blueprint für die Routen erstellen
 routes = Blueprint('routes', __name__)
@@ -46,6 +46,8 @@ def login():
 # -----------------------------------
 @routes.route('/register', methods=['GET', 'POST'])
 def register():
+    ausbilder_liste = Ausbilder.query.all()  # Alle Ausbilder holen
+
     if request.method == 'POST':
         # Daten aus dem Formular
         username = request.form['username']
@@ -60,6 +62,8 @@ def register():
         strasse = request.form['strasse']
         hausnr = request.form['hausnr']
         telefonnummer = request.form['telefonnummer']
+        bevorzugter_ausbilder = request.form.get('bevorzugter_ausbilder', None)
+
 
         # Teilnehmer speichern
         teilnehmer = Teilnehmer(
@@ -72,13 +76,14 @@ def register():
                 ort=ort,
                 strasse=strasse,
                 hausnr=hausnr,
-                telefonnummer=telefonnummer
+                telefonnummer=telefonnummer,
+                bevorzugter_ausbilder=bevorzugter_ausbilder
         )
         db.session.add(teilnehmer)
         db.session.commit()
 
         return redirect(url_for('routes.login'))
-    return render_template('register.html')
+    return render_template('register.html', ausbilder_liste=ausbilder_liste)
 
 # -----------------------------------
 # Reservierung eines Seminars
@@ -136,6 +141,8 @@ def seminar_details(datum, uhrzeit):
 @routes.route('/edit', methods=['GET', 'POST'])
 @login_required
 def edit_user():
+    ausbilder_liste = Ausbilder.query.all()
+    
     if request.method == 'POST':
         current_user.username = request.form['username']
         current_user.vorname = request.form['vorname']
@@ -145,10 +152,12 @@ def edit_user():
         current_user.strasse = request.form['strasse']
         current_user.hausnr = request.form['hausnr']
         current_user.telefonnummer = request.form['telefonnummer']
-        
+        current_user.bevorzugter_ausbilder = request.form.get('bevorzugter_ausbilder', None)
+
+
         db.session.commit()
         return redirect(url_for('routes.index'))
-    return render_template('edit_user.html')
+    return render_template('edit_user.html', ausbilder_liste=ausbilder_liste)
 
 # -----------------------------------
 # Logout Route
