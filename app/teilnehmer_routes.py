@@ -59,6 +59,7 @@ def register():
         ort = request.form['ort']
         strasse = request.form['strasse']
         hausnr = request.form['hausnr']
+        telefonnummer = request.form['telefonnummer']
 
         # Teilnehmer speichern
         teilnehmer = Teilnehmer(

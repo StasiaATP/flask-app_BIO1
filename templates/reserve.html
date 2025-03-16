@@ -9,7 +9,7 @@
             <option value="">Bitte wählen</option>
             {% for seminar in seminars %}
             <option value="{{ seminar.id }}">
-                {{ seminar.kursname }} - {{ seminar.datum }} um {{ seminar.uhrzeit }}
+                {{ seminar.kursname }} - {{ seminar.datum }} um {{ seminar.uhrzeit }} in {{ seminar.strasse }}
             </option>
             {% endfor %}
         </select>

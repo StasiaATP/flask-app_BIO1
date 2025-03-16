@@ -10,6 +10,7 @@
                 <th scope="col">Kursname</th>
                 <th scope="col">Datum</th>
                 <th scope="col">Uhrzeit</th>
+                <th scope="col">Straße</th>                 
                 <th scope="col">Aktionen</th>
             </tr>
         </thead>
@@ -19,6 +20,7 @@
                 <td>{{ reservation.seminar.kursname }}</td>
                 <td>{{ reservation.seminar.datum }}</td>
                 <td>{{ reservation.seminar.uhrzeit }}</td>
+                <td>{{ reservation.seminar.strasse }}</td>
                 <td>
                     <form action="{{ url_for('routes.stornieren', reservierungsnummer=reservation.reservierungsnummer) }}" method="post" style="display:inline;">
                         <button type="submit" class="btn btn-danger btn-sm">Stornieren</button>
