@@ -43,8 +43,8 @@ def populate_database():
     # Teilnehmer:
     # username, password, sozial_vers_nr, vorname, nachname, plz, ort, strasse, hausnr
     teilnehmer_data = [
-            ( "test", "test", 1, "Test", "User", 1000, "Wien", "Teststrasse", 1),
-            ( "teilnehmer", "abc", 2, "Max", "Mustermann", 1000, "Wien", "Musterstraße", 9),
+        ("test", "test", 1, "Test", "User", 1000, "Wien", "Teststrasse", 1, "06641234567"),
+        ("teilnehmer", "abc", 2, "Max", "Mustermann", 1000, "Wien", "Musterstraße", 9, "06649876543"),
     ]
 
     for data in teilnehmer_data:
@@ -57,7 +57,8 @@ def populate_database():
             plz=data[5],
             ort=data[6],
             strasse=data[7],
-            hausnr=data[8]
+            hausnr=data[8],
+            telefonnummer=data[9]
         )
         db.session.add(teilnehmer)
 

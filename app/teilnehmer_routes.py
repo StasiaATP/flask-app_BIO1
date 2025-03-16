@@ -70,7 +70,8 @@ def register():
                 plz=plz,
                 ort=ort,
                 strasse=strasse,
-                hausnr=hausnr
+                hausnr=hausnr,
+                telefonnummer=telefonnummer
         )
         db.session.add(teilnehmer)
         db.session.commit()
@@ -142,6 +143,7 @@ def edit_user():
         current_user.ort = request.form['ort']
         current_user.strasse = request.form['strasse']
         current_user.hausnr = request.form['hausnr']
+        current_user.telefonnummer = request.form['telefonnummer']
         
         db.session.commit()
         return redirect(url_for('routes.index'))
