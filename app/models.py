@@ -45,12 +45,11 @@ class Person(User):
 # Teilnehmer (Kunde) - Erbt von Person
 # -------------------------------------------------------------------
 class Teilnehmer(Person):
-    id = Column(Integer, ForeignKey("person.id"))
+    sozial_vers_nr = Column(Integer, ForeignKey("person.sozial_vers_nr"))
     kunden_nr = Column(Integer, primary_key=True)
-    kennzeichnung = Column(String)
+    bevorzugter_ausbilder = Column(String, ForeignKey("ausbilder.kennzeichnung"))
 
-    # Relationship with Reserviert
-    reservierungen = db.relationship("Reserviert", back_populates="teilnehmer")
+    reservierungen = db.relationship("Reserviert", back_populates="teilnehmer", uselist=False)
 
     __mapper_args__ = {"polymorphic_identity": "teilnehmer"}
 
@@ -59,7 +58,7 @@ class Teilnehmer(Person):
 # Angestellte - Erbt von Person
 # -------------------------------------------------------------------
 class Angestellte(Person):
-    id = Column(Integer, ForeignKey("person.id"))
+    sozial_vers_nr = Column(Integer, ForeignKey("person.sozial_vers_nr"))
     angestellten_nr = Column(Integer, primary_key=True)
     konto_nr = Column(String)
     kontostand = Column(Integer)  # in cent
@@ -73,7 +72,7 @@ class Angestellte(Person):
 # Ausbilder - Erbt von Angestellte
 # -------------------------------------------------------------------
 class Ausbilder(Angestellte):
-    id = Column(Integer, ForeignKey("angestellte.id"))
+    angestellten_nr = Column(Integer, ForeignKey("angestellte.angestellten_nr"), nullable=False)
     kennzeichnung = Column(String, primary_key=True)
     datum_einstellung = Column(Date)
 
@@ -84,8 +83,7 @@ class Ausbilder(Angestellte):
 # Organisator - Erbt von Angestellte
 # -------------------------------------------------------------------
 class Organisator(Angestellte):
-    id = Column(Integer, ForeignKey("angestellte.id"))
-    organisator_nr = Column(Integer, primary_key=True)
+    angestellten_nr = Column(Integer, ForeignKey("angestellte.angestellten_nr"), nullable=False, primary_key=True)
 
     __mapper_args__ = {"polymorphic_identity": "organisator"}
 
@@ -117,6 +115,8 @@ class Seminar(db.Model):
     kurs = db.relationship("Kurs", back_populates="seminare")
     reservierungen = db.relationship("Reserviert", back_populates="seminar")
 
+    # Datum und Uhrzeit werden als DateTime-Objekt kombiniert gespeichert
+    # Damit man auf beides einzeln zugreifen kann, werden properties definiert
     @property
     def datum(self):
         return self.datum_uhrzeit.date()
@@ -152,7 +152,8 @@ class HatAversion(db.Model):
 
 
 # -------------------------------------------------------------------
-# KannAbhalten (3-stellige Kurs-Ausbilder-Sprache-Verknüpfung)
+# KannAbhalten Welcher Ausbilder kann welchen Kurs in welcher Sprache abhalten 
+# (3-stellige Kurs-Ausbilder-Sprache-Verknüpfung)
 # -------------------------------------------------------------------
 class KannAbhalten(db.Model):
     ausbilder_kennzeichnung = Column(
