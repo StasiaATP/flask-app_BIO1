@@ -143,12 +143,15 @@ class SkriptExemplar(db.Model):
 # HatAversion (Ausbilder mag andere nicht)
 # -------------------------------------------------------------------
 class HatAversion(db.Model):
-    ausbilder_1 = Column(
+    kennzeichnung_ausbilder_1 = Column(
         String, ForeignKey("ausbilder.kennzeichnung"), primary_key=True
     )
-    ausbilder_2 = Column(
+    kennzeichnung_ausbilder_2 = Column(
         String, ForeignKey("ausbilder.kennzeichnung"), primary_key=True
     )
+
+    ausbilder_1 = db.relationship("Ausbilder", foreign_keys=[kennzeichnung_ausbilder_1])
+    ausbilder_2 = db.relationship("Ausbilder", foreign_keys=[kennzeichnung_ausbilder_2])
 
 
 # -------------------------------------------------------------------
@@ -163,6 +166,7 @@ class KannAbhalten(db.Model):
     sprache = Column(String, primary_key=True)
 
     ausbilder = db.relationship("Ausbilder")
+    kurs = db.relationship("Kurs")
 
 
 # -------------------------------------------------------------------
@@ -170,9 +174,12 @@ class KannAbhalten(db.Model):
 # -------------------------------------------------------------------
 class BildetAus(db.Model):
     seminar_id = Column(Integer, ForeignKey("seminar.id"), primary_key=True)
-    kennzeichnung = Column(
+    ausbilder_kennzeichnung = Column(
         String, ForeignKey("ausbilder.kennzeichnung"), primary_key=True
     )
+
+    seminar = db.relationship("Seminar")
+    ausbilder = db.relationship("Ausbilder")
 
 
 # -------------------------------------------------------------------
