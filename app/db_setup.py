@@ -10,14 +10,11 @@ Wichtig:
 - Dieses Skript sollte NUR einmal ausgeführt werden, um die Datenbank anzulegen.
 """
 
-from flask import Flask
-from app.config import Config
-from app.models import db  # Importiert das Datenbankobjekt aus models.py
+from app import create_app  #  Holt die korrekte Flask-App mit instance_path
+from app.models import db    # Importiert das Datenbankobjekt aus models.py
 
-# Flask-App erstellen (wird für den App-Kontext benötigt)
-app = Flask(__name__)
-app.config.from_object(Config)  # Konfiguration aus config.py laden
-db.init_app(app)  # Die SQLAlchemy-Datenbank mit Flask verknüpfen
+# Erstelle die Flask-App mit der richtigen Konfiguration
+app = create_app()
 
 # Datenbank erstellen (innerhalb des App-Kontexts)
 with app.app_context():
