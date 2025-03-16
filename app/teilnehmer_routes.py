@@ -8,7 +8,7 @@ einschließlich Login, Registrierung und Seminarverwaltung.
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
-from app.models import db, User, Person, Seminar, Reserviert
+from app.models import db, User, Teilnehmer, Seminar, Reserviert
 
 # Blueprint für die Routen erstellen
 routes = Blueprint('routes', __name__)
@@ -60,15 +60,19 @@ def register():
         strasse = request.form['strasse']
         hausnr = request.form['hausnr']
 
-        # Person speichern
-        new_person = Person(sozial_vers_nr=sozial_vers_nr, vorname=vorname, nachname=nachname,
-                            plz=plz, ort=ort, strasse=strasse, hausnr=hausnr)
-        db.session.add(new_person)
-        db.session.commit()
-
-        # User speichern und mit Person verknüpfen
-        new_user = User(username=username, password=password, sozial_vers_nr=sozial_vers_nr)
-        db.session.add(new_user)
+        # Teilnehmer speichern
+        teilnehmer = Teilnehmer(
+                username=username,
+                password=password,
+                sozial_vers_nr=sozial_vers_nr,
+                vorname=vorname,
+                nachname=nachname,
+                plz=plz,
+                ort=ort,
+                strasse=strasse,
+                hausnr=hausnr
+        )
+        db.session.add(teilnehmer)
         db.session.commit()
 
         return redirect(url_for('routes.login'))
