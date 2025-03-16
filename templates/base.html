@@ -12,10 +12,14 @@
             <a class="navbar-brand" href="/">Flask App</a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
+                    {% if not current_user.is_authenticated %}
                     <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
                     <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+                    {% endif %}
+                    {% if current_user.type == 'teilnehmer' %}
                     <li class="nav-item"><a class="nav-link" href="/reserve">Seminare Reservieren</a></li>
                     <li class="nav-item"><a class="nav-link" href="/reservierungen">Meine Reservierungen</a></li>
+                    {% endif %}
                     <li class="nav-item"><a class="nav-link" href="/edit">Benutzerdaten bearbeiten</a></li>
                     {% if current_user.is_authenticated %}
                     <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
