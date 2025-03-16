@@ -1,11 +1,14 @@
 from flask import Flask
 from app.config import Config
 from app.models import db, User  # Import User model!
+from app import routes
 from flask_login import LoginManager
 
 def create_app():
     app = Flask(__name__, template_folder="../templates")  # ✅ Set correct template path
     app.config.from_object(Config)
+    app.register_blueprint(routes.routes)
+
     db.init_app(app)
 
     # ✅ Initialize Flask-Login
