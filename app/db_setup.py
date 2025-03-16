@@ -13,8 +13,9 @@ Wichtig:
 from datetime import date, time
 import sqlite3
 import os
+from werkzeug.security import generate_password_hash
 from app.config import Config
-from app.models import db, Kurs, Seminar
+from app.models import db, Kurs, Seminar, Person, User
 
 def setup_database(app):
     # in case we are running the app for the first time, 
@@ -100,6 +101,29 @@ def populate_database():
             kursname=seminar_data[5]
         )
         db.session.add(seminar)
+
+    # Testuser mit username "test" und passwort "test" hinzufügen
+    password = generate_password_hash("test")
+    
+    # Personendaten
+    sozial_vers_nr = 1
+    vorname = "Vorname"
+    nachname = "Nachname"
+    plz = 1000
+    ort = "Wien"
+    strasse = "Musterstraße"
+    hausnr = 1
+
+    # Person speichern
+    new_person = Person(sozial_vers_nr=sozial_vers_nr, vorname=vorname, nachname=nachname,
+                        plz=plz, ort=ort, strasse=strasse, hausnr=hausnr)
+    db.session.add(new_person)
+    db.session.commit()
+
+    # User speichern und mit Person verknüpfen
+    new_user = User(username="test", password=password, sozial_vers_nr=sozial_vers_nr)
+    db.session.add(new_user)
+    db.session.commit()
 
     # Speichern Sie die Änderungen in der Datenbank
     db.session.commit()
