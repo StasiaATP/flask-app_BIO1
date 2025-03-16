@@ -86,9 +86,8 @@ def reserve():
             seminar = Seminar.query.get(seminar_id)
             if seminar:
                 new_reservation = Reserviert(
+                    seminar_id=seminar_id,
                     kunden_nr=current_user.id,
-                    datum=seminar.datum,
-                    uhrzeit=seminar.uhrzeit
                 )
                 db.session.add(new_reservation)
                 db.session.commit()
@@ -133,12 +132,12 @@ def seminar_details(datum, uhrzeit):
 def edit_user():
     if request.method == 'POST':
         current_user.username = request.form['username']
-        current_user.person.vorname = request.form['vorname']
-        current_user.person.nachname = request.form['nachname']
-        current_user.person.plz = request.form['plz']
-        current_user.person.ort = request.form['ort']
-        current_user.person.strasse = request.form['strasse']
-        current_user.person.hausnr = request.form['hausnr']
+        current_user.vorname = request.form['vorname']
+        current_user.nachname = request.form['nachname']
+        current_user.plz = request.form['plz']
+        current_user.ort = request.form['ort']
+        current_user.strasse = request.form['strasse']
+        current_user.hausnr = request.form['hausnr']
         
         db.session.commit()
         return redirect(url_for('routes.index'))

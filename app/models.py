@@ -1,157 +1,186 @@
-from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Column, Date, ForeignKey, Integer, String, DateTime
 
 # Datenbank-Objekt für SQLAlchemy erstellen
 db = SQLAlchemy()
+
 
 # -------------------------------------------------------------------
 # Modell für Benutzer (User)
 # - Speichert Login-Daten und ist mit Person verknüpft
 # -------------------------------------------------------------------
 class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)  
-    username = db.Column(db.String(150), unique=True, nullable=False)  
-    password = db.Column(db.String(150), nullable=False)  
-    sozial_vers_nr = db.Column(db.String(15), db.ForeignKey('person.sozial_vers_nr'), nullable=False)
+    id = Column(Integer, primary_key=True)
+    username = Column(String, unique=True, nullable=False)
+    password = Column(String, nullable=False)
 
-    person = db.relationship('Person', back_populates="user")
+    # Für die Beziehungen zu abgeleiteten Klassen (Person, Angestellte, etc.)
+    type = Column(String, nullable=False)
+    __mapper_args__ = {
+        "polymorphic_identity": "user",
+        "polymorphic_on": "type",
+    }
+
 
 # -------------------------------------------------------------------
-# Modell für Personendaten
+# Modell für Personendaten (Basisklasse für Teilnehmer, Angestellte, etc.)
 # - Enthält persönliche Infos wie Name & Adresse
-# - Wird mit User, Teilnehmer & Angestellter verknüpft
 # -------------------------------------------------------------------
-class Person(db.Model):
-    sozial_vers_nr = db.Column(db.String(15), primary_key=True)
-    vorname = db.Column(db.String(100), nullable=False)  
-    nachname = db.Column(db.String(100), nullable=False)  
-    plz = db.Column(db.String(5), nullable=False)  
-    ort = db.Column(db.String(100), nullable=False)  
-    strasse = db.Column(db.String(100), nullable=False)  
-    hausnr = db.Column(db.String(10), nullable=False)  
+class Person(User):
+    id = Column(Integer, ForeignKey("user.id"))
+    sozial_vers_nr = Column(String, primary_key=True)
+    vorname = Column(String, nullable=False)
+    nachname = Column(String, nullable=False)
+    plz = Column(String, nullable=False)
+    ort = Column(String, nullable=False)
+    strasse = Column(String, nullable=False)
+    hausnr = Column(String, nullable=False)
+    telefonnummer = Column(String)
 
-    user = db.relationship('User', uselist=False, back_populates="person")
-    teilnehmer = db.relationship('Teilnehmer', backref='person_teilnehmer', uselist=False)
-    angestellte = db.relationship('Angestellte', backref='person_angestellte', uselist=False)
+    __mapper_args__ = {"polymorphic_identity": "person"}
 
-# -------------------------------------------------------------------
-# Telefonnummer (Optional)
-# -------------------------------------------------------------------
-class Telefonnummer(db.Model):
-    telefon_nr = db.Column(db.String(15), primary_key=True)  
-    sozial_vers_nr = db.Column(db.String(15), db.ForeignKey('person.sozial_vers_nr'), nullable=False)  
-
-    person = db.relationship('Person', backref='telefonnummer', uselist=False)
 
 # -------------------------------------------------------------------
-# Teilnehmer (Kunde)
+# Teilnehmer (Kunde) - Erbt von Person
 # -------------------------------------------------------------------
-class Teilnehmer(db.Model):
-    kunden_nr = db.Column(db.Integer, primary_key=True)  
-    sozial_vers_nr = db.Column(db.String(15), db.ForeignKey('person.sozial_vers_nr'), nullable=False)
-    kennzeichnung = db.Column(db.String(50))  
+class Teilnehmer(Person):
+    id = Column(Integer, ForeignKey("person.id"))
+    kunden_nr = Column(Integer, primary_key=True)
+    kennzeichnung = Column(String)
+
+    # Relationship with Reserviert
+    reservierungen = db.relationship("Reserviert", back_populates="teilnehmer")
+
+    __mapper_args__ = {"polymorphic_identity": "teilnehmer"}
+
 
 # -------------------------------------------------------------------
-# Angestellte
+# Angestellte - Erbt von Person
 # -------------------------------------------------------------------
-class Angestellte(db.Model):
-    angestellten_nr = db.Column(db.Integer, primary_key=True)
-    sozial_vers_nr = db.Column(db.String(15), db.ForeignKey('person.sozial_vers_nr'), nullable=False)
-    konto_nr = db.Column(db.String(20))  
-    kontostand = db.Column(db.Float)  
+class Angestellte(Person):
+    id = Column(Integer, ForeignKey("person.id"))
+    angestellten_nr = Column(Integer, primary_key=True)
+    konto_nr = Column(String)
+    kontostand = Column(Integer)  # in cent
+
+    entlehnte_skripte = db.relationship("SkriptExemplar", back_populates="entlehnt_von")
+
+    __mapper_args__ = {"polymorphic_identity": "angestellte"}
+
 
 # -------------------------------------------------------------------
-# Ausbilder
+# Ausbilder - Erbt von Angestellte
 # -------------------------------------------------------------------
-class Ausbilder(db.Model):
-    kennzeichnung = db.Column(db.String(50), primary_key=True)
-    datum_einstellung = db.Column(db.Date)  
-    angestellten_nr = db.Column(db.Integer, db.ForeignKey('angestellte.angestellten_nr'))  
+class Ausbilder(Angestellte):
+    id = Column(Integer, ForeignKey("angestellte.id"))
+    kennzeichnung = Column(String, primary_key=True)
+    datum_einstellung = Column(Date)
+
+    __mapper_args__ = {"polymorphic_identity": "ausbilder"}
+
 
 # -------------------------------------------------------------------
-# Organisator
+# Organisator - Erbt von Angestellte
 # -------------------------------------------------------------------
-class Organisator(db.Model):
-    organisator_nr = db.Column(db.Integer, primary_key=True)  
-    angestellten_nr = db.Column(db.Integer, db.ForeignKey('angestellte.angestellten_nr'))  
+class Organisator(Angestellte):
+    id = Column(Integer, ForeignKey("angestellte.id"))
+    organisator_nr = Column(Integer, primary_key=True)
+
+    __mapper_args__ = {"polymorphic_identity": "organisator"}
+
 
 # -------------------------------------------------------------------
 # Kurs
 # -------------------------------------------------------------------
 class Kurs(db.Model):
-    kursname = db.Column(db.String(100), primary_key=True)
-    anzahl_organisatoren = db.Column(db.Integer)  
-    vorbereitungsdauer = db.Column(db.Integer)  
-    skriptentyp_nr = db.Column(db.String(50))  
-    autoren_nr = db.Column(db.Integer, db.ForeignKey('autor.autoren_nr'))  
+    kursname = Column(String, primary_key=True)
+    anzahl_organisatoren = Column(Integer)
+    vorbereitungsdauer = Column(Integer)
+    skriptentyp_nr = Column(Integer)
+    autor = Column(String)
 
-# -------------------------------------------------------------------
-# Sprache
-# -------------------------------------------------------------------
-class Sprache(db.Model):
-    bezeichnung = db.Column(db.String(100), primary_key=True)
+    seminare = db.relationship("Seminar", back_populates="kurs")
+
 
 # -------------------------------------------------------------------
 # Seminar
 # -------------------------------------------------------------------
 class Seminar(db.Model):
-    id = db.Column(db.Integer, primary_key=True)  
-    datum = db.Column(db.Date, nullable=False)  
-    uhrzeit = db.Column(db.Time, nullable=False)  
-    strasse = db.Column(db.String(100), nullable=False)  
-    hausnr = db.Column(db.String(10), nullable=False)  
-    plz = db.Column(db.String(5), nullable=False)  
-    kursname = db.Column(db.String(100), db.ForeignKey('kurs.kursname'), nullable=False)
+    id = Column(Integer, primary_key=True)
+    datum_uhrzeit = Column(DateTime, nullable=False)
+    strasse = Column(String, nullable=False)
+    hausnr = Column(String, nullable=False)
+    plz = Column(String, nullable=False)
+    kursname = Column(String, ForeignKey("kurs.kursname"), nullable=False)
 
-# -------------------------------------------------------------------
-# Autor
-# -------------------------------------------------------------------
-class Autor(db.Model):
-    autoren_nr = db.Column(db.Integer, primary_key=True)  
-    name = db.Column(db.String(100), nullable=False)  
+    kurs = db.relationship("Kurs", back_populates="seminare")
+    reservierungen = db.relationship("Reserviert", back_populates="seminar")
+
+    @property
+    def datum(self):
+        return self.datum_uhrzeit.date()
+
+    @property
+    def uhrzeit(self):
+        return self.datum_uhrzeit.time()
+
 
 # -------------------------------------------------------------------
 # Skript-Exemplar
 # -------------------------------------------------------------------
 class SkriptExemplar(db.Model):
-    inventar_nr = db.Column(db.Integer, primary_key=True)  
-    kursname = db.Column(db.String(100), db.ForeignKey('kurs.kursname'), nullable=False)  
+    inventar_nr = Column(Integer, primary_key=True)
+    kursname = Column(String, ForeignKey("kurs.kursname"), nullable=False)
+
+    entlehnt_von_nr = Column(Integer, ForeignKey("angestellte.angestellten_nr"))
+    entlehnt_von = db.relationship(
+        "Angestellte", back_populates="entlehnte_skripte", uselist=False
+    )
+
 
 # -------------------------------------------------------------------
 # HatAversion (Ausbilder mag andere nicht)
 # -------------------------------------------------------------------
 class HatAversion(db.Model):
-    ausbilder_1 = db.Column(db.String(50), db.ForeignKey('ausbilder.kennzeichnung'), primary_key=True)  
-    ausbilder_2 = db.Column(db.String(50), db.ForeignKey('ausbilder.kennzeichnung'), primary_key=True)  
+    ausbilder_1 = Column(
+        String, ForeignKey("ausbilder.kennzeichnung"), primary_key=True
+    )
+    ausbilder_2 = Column(
+        String, ForeignKey("ausbilder.kennzeichnung"), primary_key=True
+    )
+
 
 # -------------------------------------------------------------------
-# HaeltAbIn (Kurs-Sprache-Verknüpfung)
+# KannAbhalten (3-stellige Kurs-Ausbilder-Sprache-Verknüpfung)
 # -------------------------------------------------------------------
-class HaeltAbIn(db.Model):
-    kennzeichnung = db.Column(db.String(50), db.ForeignKey('ausbilder.kennzeichnung'), primary_key=True)  
-    kursname = db.Column(db.String(100), db.ForeignKey('kurs.kursname'), primary_key=True)  
-    bezeichnung = db.Column(db.String(100), db.ForeignKey('sprache.bezeichnung'), primary_key=True)  
+class KannAbhalten(db.Model):
+    ausbilder_kennzeichnung = Column(
+        String, ForeignKey("ausbilder.kennzeichnung"), primary_key=True
+    )
+    kursname = Column(String, ForeignKey("kurs.kursname"), primary_key=True)
+    sprache = Column(String, primary_key=True)
+
+    ausbilder = db.relationship("Ausbilder")
+
 
 # -------------------------------------------------------------------
 # BildetAus (Welcher Ausbilder hält welches Seminar)
 # -------------------------------------------------------------------
 class BildetAus(db.Model):
-    datum = db.Column(db.Date, primary_key=True)  
-    uhrzeit = db.Column(db.Time, primary_key=True)  
-    kennzeichnung = db.Column(db.String(50), db.ForeignKey('ausbilder.kennzeichnung'))  
+    seminar_id = Column(Integer, ForeignKey("seminar.id"), primary_key=True)
+    kennzeichnung = Column(
+        String, ForeignKey("ausbilder.kennzeichnung"), primary_key=True
+    )
+
 
 # -------------------------------------------------------------------
 # Reserviert (Teilnehmer bucht ein Seminar)
 # -------------------------------------------------------------------
 class Reserviert(db.Model):
-    reservierungsnummer = db.Column(db.Integer, primary_key=True)  
-    kunden_nr = db.Column(db.Integer, db.ForeignKey('teilnehmer.kunden_nr'), nullable=False)  
-    datum = db.Column(db.Date, nullable=False)  
-    uhrzeit = db.Column(db.Time, nullable=False)  
+    reservierungsnummer = Column(Integer, primary_key=True)
+    kunden_nr = Column(Integer, ForeignKey("teilnehmer.kunden_nr"), nullable=False)
+    seminar_id = Column(Integer, ForeignKey("seminar.id"), nullable=False)
 
-# -------------------------------------------------------------------
-# Entlehnt (Angestellte leihen Skripte aus)
-# -------------------------------------------------------------------
-class Entlehnt(db.Model):
-    angestellten_nr = db.Column(db.Integer, db.ForeignKey('angestellte.angestellten_nr'), primary_key=True)  
-    inventar_nr = db.Column(db.Integer, db.ForeignKey('skript_exemplar.inventar_nr'), primary_key=True)  
+    teilnehmer = db.relationship("Teilnehmer", back_populates="reservierungen")
+    seminar = db.relationship("Seminar", back_populates="reservierungen")

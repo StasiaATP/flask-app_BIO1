@@ -10,12 +10,12 @@ Wichtig:
 - Diese funktionen werden bei jedem Start der app aufgerufen (d.h. man muss das Skript nicht manuell ausführen).
 """
 
-from datetime import date, time
+from datetime import date, datetime
 import sqlite3
 import os
 from werkzeug.security import generate_password_hash
 from app.config import Config
-from app.models import db, Kurs, Seminar, Person, User
+from app.models import db, Kurs, Seminar, Teilnehmer, Ausbilder
 
 def setup_database(app):
     # in case we are running the app for the first time, 
@@ -38,19 +38,66 @@ def setup_database(app):
 
 
 def populate_database():
-    # Erstellen Sie die Tabellen in der Datenbank
-    #db.create_all()
+    """Fülle die Datenbank mit Beispieldaten zum Testen"""
 
-    # Beispielhafte Daten für Kurse
-    kurse_data = [
-        ('Python Grundlagen', 2, 40, 'Skript001', 1),
-        ('Flask Webentwicklung', 3, 50, 'Skript002', 2),
-        ('Datenanalyse mit Pandas', 2, 45, 'Skript003', 3),
-        ('Maschinelles Lernen mit scikit-learn', 4, 60, 'Skript004', 4),
-        ('Datenbanken mit SQLAlchemy', 2, 55, 'Skript005', 5)
+    # Teilnehmer:
+    # username, password, sozial_vers_nr, vorname, nachname, plz, ort, strasse, hausnr
+    teilnehmer_data = [
+            ( "test", "test", 1, "Test", "User", 1000, "Wien", "Teststrasse", 1),
+            ( "teilnehmer", "abc", 2, "Max", "Mustermann", 1000, "Wien", "Musterstraße", 9),
     ]
 
-    # Beispielhafte Daten für Seminare
+    for data in teilnehmer_data:
+        teilnehmer = Teilnehmer(
+            username=data[0], 
+            password=generate_password_hash(data[1]), 
+            sozial_vers_nr=data[2],
+            vorname=data[3],
+            nachname=data[4],
+            plz=data[5],
+            ort=data[6],
+            strasse=data[7],
+            hausnr=data[8]
+        )
+        db.session.add(teilnehmer)
+
+
+    # Ausbilder:
+    # username, password, sozial_vers_nr, vorname, nachname, plz, ort, strasse, hausnr, kennzeichnung, konto_nr, kontostand, datum_einstellung
+    ausbilder_data = [
+            ( "hans", "abc", 10, "Hans", "Mayer", 1010, "Wien", "Am Graben", 5, "AT123456789", 1000, date(2025, 1, 1)),
+            ]
+
+    for data in ausbilder_data:
+        ausbilder = Ausbilder(
+            username=data[0], 
+            password=generate_password_hash(data[1]), 
+            sozial_vers_nr=data[2],
+            vorname=data[3],
+            nachname=data[4],
+            plz=data[5],
+            ort=data[6],
+            strasse=data[7],
+            hausnr=data[8],
+            kennzeichnung=data[0], 
+            konto_nr=data[9],
+            kontostand=data[10],
+            datum_einstellung=data[11],
+        )
+        db.session.add(ausbilder)
+
+    # Kurse:
+    # kursname, anzahl_organisatoren, vorbereitungsdauer, skriptentyp_nr, autor
+    kurse_data = [
+        ('Python Grundlagen', 2, 40, 1, "Hans Mayer"),
+        ('Flask Webentwicklung', 3, 50, 2, "Maria Huber"),
+        ('Datenanalyse mit Pandas', 2, 45, 3, "Peter Müller"),
+        ('Maschinelles Lernen mit scikit-learn', 4, 60, 4, "Anna Wagner"),
+        ('Datenbanken mit SQLAlchemy', 2, 55, 5, "Maria Huber")
+    ]
+
+    # Seminare:
+    # datum, uhrzeit, strasse, hausnr, plz, kursname
     seminare_data = [
         ('2025-04-01', '09:00:00', 'Musterstraße 1', '1', '1010', 'Python Grundlagen'),
         ('2025-04-02', '14:00:00', 'Beispielweg 2', '2', '1020', 'Python Grundlagen'),
@@ -86,44 +133,20 @@ def populate_database():
             anzahl_organisatoren=kurs_data[1],
             vorbereitungsdauer=kurs_data[2],
             skriptentyp_nr=kurs_data[3],
-            autoren_nr=kurs_data[4]
+            autor=kurs_data[4]
         )
         db.session.add(kurs)
 
     # Fügen Sie die Seminare zur Datenbank hinzu
     for seminar_data in seminare_data:
         seminar = Seminar(
-            datum=date.fromisoformat(seminar_data[0]),
-            uhrzeit=time.fromisoformat(seminar_data[1]),
+            datum_uhrzeit=datetime.fromisoformat(seminar_data[0] + 'T' + seminar_data[1]+ ".000000"),
             strasse=seminar_data[2],
             hausnr=seminar_data[3],
             plz=seminar_data[4],
             kursname=seminar_data[5]
         )
         db.session.add(seminar)
-
-    # Testuser mit username "test" und passwort "test" hinzufügen
-    password = generate_password_hash("test")
-    
-    # Personendaten
-    sozial_vers_nr = 1
-    vorname = "Vorname"
-    nachname = "Nachname"
-    plz = 1000
-    ort = "Wien"
-    strasse = "Musterstraße"
-    hausnr = 1
-
-    # Person speichern
-    new_person = Person(sozial_vers_nr=sozial_vers_nr, vorname=vorname, nachname=nachname,
-                        plz=plz, ort=ort, strasse=strasse, hausnr=hausnr)
-    db.session.add(new_person)
-    db.session.commit()
-
-    # User speichern und mit Person verknüpfen
-    new_user = User(username="test", password=password, sozial_vers_nr=sozial_vers_nr)
-    db.session.add(new_user)
-    db.session.commit()
 
     # Speichern Sie die Änderungen in der Datenbank
     db.session.commit()
