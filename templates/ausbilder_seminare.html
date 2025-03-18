@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Von mir geleitete Seminare</h2>
+    {% if seminare %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Kursname</th>
+                <th scope="col">Datum</th>
+                <th scope="col">Uhrzeit</th>
+                <th scope="col">Straße</th>   
+                <th scope="col">Hausnummer</th>
+                <th scope="col">PLZ</th>              
+                <th scope="col"> </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in seminare %}
+            <tr>
+                <td>{{ s.seminar.id }}</td>
+                <td>{{ s.seminar.kursname }}</td>
+                <td>{{ s.seminar.datum }}</td>
+                <td>{{ s.seminar.uhrzeit }}</td>
+                <td>{{ s.seminar.strasse }}</td>
+                <td>{{ s.seminar.hausnr }}</td>
+                <td>{{ s.seminar.plz }}</td>
+                <td>
+                    <a class="btn btn-primary" href="{{ url_for('ausbilder_routes.teilnehmer_anzeigen', seminar_id=s.seminar.id) }}">
+                        Teilnehmer anzeigen
+                    </a>
+                    <!-- Seminar ändern -->
+                    <a class="btn btn-warning" href="{{ url_for('ausbilder_routes.seminar_aendern', seminar_id=s.seminar.id) }}">
+                        Seminar ändern
+                    </a>
+                    <!-- Seminar löschen -->
+                    <form method="POST" action="{{ url_for('ausbilder_routes.seminar_loeschen', seminar_id=s.seminar.id) }}" style="display:inline;">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Sind Sie sicher, dass Sie dieses Seminar löschen möchten?');">
+                            Seminar löschen
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+    {% else %}
+    <p>Sie leiten keine Seminare.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+
+

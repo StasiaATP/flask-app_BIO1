@@ -20,6 +20,10 @@
                     <li class="nav-item"><a class="nav-link" href="/reserve">Seminare Reservieren</a></li>
                     <li class="nav-item"><a class="nav-link" href="/reservierungen">Meine Reservierungen</a></li>
                     {% endif %}
+                    {% if current_user.type == 'ausbilder' %}
+                    <li class="nav-item"><a class="nav-link" href="/ausbilder_seminare">Von mir geleitete Seminare</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/ausbilder_seminar_erstellen">Neues Seminar erstellen</a></li>
+                    {% endif %}
                     <li class="nav-item"><a class="nav-link" href="/edit">Benutzerdaten bearbeiten</a></li>
                     {% if current_user.is_authenticated %}
                     <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Teilnehmer für das Seminar</h2>
+    
+    {% if personen %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Vorname</th>
+                <th>Nachname</th>
+                <th>Sozialversicherungsnummer</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in personen %}
+            <tr>
+                <td>{{ p.id }}</td>
+                <td>{{ p.vorname }}</td>
+                <td>{{ p.nachname }}</td>
+                <td>{{ p.sozial_vers_nr }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Keine Teilnehmer für dieses Seminar.</p>
+    {% endif %}
+    
+    <a class="btn btn-secondary mt-3" href="{{ url_for('ausbilder_routes.geleitete_seminare_zeigen') }}">Zurück</a>
+</div>
+{% endblock %}

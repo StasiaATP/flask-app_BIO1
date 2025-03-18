@@ -1,0 +1,63 @@
+<style>
+    table {
+    
+        border-collapse: collapse; /* removes double lines */
+    }
+    th, td {
+        padding: 10px 20px; /* horizontal and vertical space */
+        text-align: left; /* text align left */
+        border: 1px solid #ddd; /* light colored borders */
+    }
+    th {
+        background-color: #f8f9fa; /* light colored background for */
+        font-weight: bold; /* bold titles */
+    }
+</style>
+
+{% if error_message %}
+    <div class="alert alert-danger" role="alert">
+        {{ error_message }}
+    </div>
+{% endif %}
+<h2>Aktuelle Parameter von Seminar</h2>
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Kursname</th>
+        <th>Datum Uhrzeit</th>
+        <th>Strasse</th>
+        <th>Hausnummer</th>
+        <th>PLZ</th>
+    </tr>
+    <tr>
+        <td>{{ seminar.id }}</td>
+        <td>{{ seminar.kursname }}</td>
+        <td>{{ seminar.datum_uhrzeit }}</td>
+        <td>{{ seminar.strasse }}</td>
+        <td>{{ seminar.hausnr }}</td>
+        <td>{{ seminar.plz }}</td>
+    </tr>
+</table>
+
+
+<h2>Seminar ändern</h2>
+<form method="POST" action="{{ url_for('ausbilder_routes.seminar_aendern', seminar_id=seminar.id) }}">
+    <div class="form-group">
+        <label for="Datum Uhrzeit">Datum Uhrzeit (yyyy-mm-dd hh:mm:ss)</label>
+        <input type="text" class="form-control" name="Datum Uhrzeit" required>
+    </div>
+    <div class="form-group">
+        <label for="Strasse">Strasse</label>
+        <input type="text" class="form-control" name="Strasse" required>
+    </div>
+    <div class="form-group">
+        <label for="Hausnummer">Hausnummer</label>
+        <input type="text" class="form-control" name="Hausnummer" required>
+    </div>
+    <div class="form-group">
+        <label for="PLZ">PLZ</label>
+        <input type="text" class="form-control" name="PLZ" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Seminar ändern</button>
+</form>

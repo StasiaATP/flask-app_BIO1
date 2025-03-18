@@ -2,6 +2,7 @@ from flask import Flask
 from app.config import Config
 from app.models import db, User  # Import User model!
 from app import teilnehmer_routes
+from app.ausbilder_routes import ausbilder_routes
 from flask_login import LoginManager
 from app.db_setup import setup_database
 
@@ -9,6 +10,7 @@ def create_app():
     app = Flask(__name__, template_folder="../templates")  # ✅ Set correct template path
     app.config.from_object(Config)
     app.register_blueprint(teilnehmer_routes.routes)
+    app.register_blueprint(ausbilder_routes)
 
     setup_database(app)
 
