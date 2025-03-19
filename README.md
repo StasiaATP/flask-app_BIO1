@@ -212,7 +212,6 @@ Falls du Fragen hast oder dieses Projekt erweitern möchtest, erstelle einfach e
 
 **Happy Coding!**
 
-![image](https://github.com/user-attachments/assets/17a6ea07-506f-4121-80e3-8152cca26391)
 
 ## Test Zugangsdaten für die App:
 
