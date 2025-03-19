@@ -101,7 +101,7 @@ python app/db_setup.py
 ```
 ### 1.4 Starte die Anwendung:
 ```bash
-flask run
+flask run # alternativ python -m flask run
 ```
 Die Anwendung läuft nun unter http://127.0.0.1:5000/.
 
@@ -110,11 +110,11 @@ Die Anwendung läuft nun unter http://127.0.0.1:5000/.
 
 *2.1 Teilnehmer-Funktionen:*
 
-- Seminare anzeigen (Kursname, Datum, Uhrzeit, Ort)
+- Seminare anzeigen (Kursname, Datum, Uhrzeit, Straße)
 
 - Reservierungen vornehmen/stornieren
 
-- Bevorzugte Ausbilder speichern
+- Bevorzugte Ausbilder auswählen
 
 - Eigene Benutzerdaten verwalten
 
@@ -154,10 +154,10 @@ Die Anwendung läuft nun unter http://127.0.0.1:5000/.
 
 | Teammitglieder               | Aufgabe                                      |
 |------------------------------|---------------------------------------------|
-| **Anastasia Ceta & Sabina Raykova** | Teilnehmer-Dashboard, Login/Register, CSS Styling, Datenverwaltung |
-| **Edit Felföldi**            | Ausbilder-Dashboard, eigene Routes, HTML für Ausbilder, Seminarverwaltung |
+| **Anastasia Ceta & Sabina Raykova** | Teilnehmer-Dashboard, Login/Register und Datenverwaltung (common_routes.py), CSS Styling, HTMLs (Teilnehmer und personenbezogenen HTMLs) |
+| **Edit Felföldi**            | Ausbilder-Dashboard, Ausbilder Routes, HTMLs für Ausbilder, Seminarverwaltung |
 | **Nicholas Wedige**          | Organisator-Dashboard, Kursverwaltung, Teilnehmerzahl-Überwachung |
-| **Doris Steinbauer**         | Datenbankstruktur (models.py), Fehlerbeseitigung, Admin-Dashboard |
+| **Doris Steinbauer**         | Datenbankstruktur (models.py,db_setup.py), Fehlerbeseitigung, Admin-Dashboard (admin_routes.py) |
 
 
 **4. 🚀 Lessons Learned & Fazit**
