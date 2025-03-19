@@ -22,7 +22,7 @@
                 <td>{{ reservation.seminar.uhrzeit }}</td>
                 <td>{{ reservation.seminar.strasse }}</td>
                 <td>
-                    <form action="{{ url_for('routes.stornieren', reservierungsnummer=reservation.reservierungsnummer) }}" method="post" style="display:inline;">
+                    <form action="{{ url_for('teilnehmer_routes.stornieren', reservierungsnummer=reservation.reservierungsnummer) }}" method="post" style="display:inline;">
                         <button type="submit" class="btn btn-danger btn-sm">Stornieren</button>
                     </form>
                 </td>

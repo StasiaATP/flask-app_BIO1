@@ -5,13 +5,12 @@ Dieses Modul definiert alle API-Endpunkte der Webanwendung,
 einschließlich Login, Registrierung und Seminarverwaltung.
 """
 
-from flask import Blueprint, render_template, request, redirect, url_for
-from flask_login import login_user, login_required, logout_user, current_user
-from werkzeug.security import check_password_hash, generate_password_hash
-from app.models import db, User, Teilnehmer, Seminar, Reserviert, Ausbilder
+from flask import Blueprint, render_template, request, redirect
+from flask_login import login_required, current_user
+from .models import db, User, Seminar, Reserviert
 
 # Blueprint für die Routen erstellen
-routes = Blueprint('routes', __name__)
+teilnehmer_routes = Blueprint('teilnehmer_routes', __name__)
 
 # -----------------------------------
 # Funktion zur Initialisierung des Login-Managers
@@ -21,74 +20,9 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 # -----------------------------------
-# Home Route
-# -----------------------------------
-@routes.route('/')
-def index():
-    return render_template('index.html')
-
-# -----------------------------------
-# Login Route
-# -----------------------------------
-@routes.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        user = User.query.filter_by(username=username).first()
-        if user and check_password_hash(user.password, password):
-            login_user(user)
-            return redirect(url_for('routes.index'))
-    return render_template('login.html')
-
-# -----------------------------------
-# Registrierung eines Teilnehmers
-# -----------------------------------
-@routes.route('/register', methods=['GET', 'POST'])
-def register():
-    ausbilder_liste = Ausbilder.query.all()  # Alle Ausbilder holen
-
-    if request.method == 'POST':
-        # Daten aus dem Formular
-        username = request.form['username']
-        password = generate_password_hash(request.form['password'])
-        
-        # Personendaten
-        sozial_vers_nr = request.form['sozial_vers_nr']
-        vorname = request.form['vorname']
-        nachname = request.form['nachname']
-        plz = request.form['plz']
-        ort = request.form['ort']
-        strasse = request.form['strasse']
-        hausnr = request.form['hausnr']
-        telefonnummer = request.form['telefonnummer']
-        bevorzugter_ausbilder = request.form.get('bevorzugter_ausbilder', None)
-
-
-        # Teilnehmer speichern
-        teilnehmer = Teilnehmer(
-                username=username,
-                password=password,
-                sozial_vers_nr=sozial_vers_nr,
-                vorname=vorname,
-                nachname=nachname,
-                plz=plz,
-                ort=ort,
-                strasse=strasse,
-                hausnr=hausnr,
-                telefonnummer=telefonnummer,
-                bevorzugter_ausbilder=bevorzugter_ausbilder
-        )
-        db.session.add(teilnehmer)
-        db.session.commit()
-
-        return redirect(url_for('routes.login'))
-    return render_template('register.html', ausbilder_liste=ausbilder_liste)
-
-# -----------------------------------
 # Reservierung eines Seminars
 # -----------------------------------
-@routes.route('/reserve', methods=['GET', 'POST'])
+@teilnehmer_routes.route('/reserve', methods=['GET', 'POST'])
 @login_required
 def reserve():
     if request.method == 'POST':
@@ -102,14 +36,14 @@ def reserve():
                 )
                 db.session.add(new_reservation)
                 db.session.commit()
-                return redirect(url_for('routes.reservierungen')) # leite weiter zu Reservierungen
+                return redirect('/reservierungen') # leite weiter zu Reservierungen
     seminars = Seminar.query.all()
     return render_template('reserve.html', seminars=seminars)
 
 # -----------------------------------
 # Liste der Reservierungen anzeigen
 # -----------------------------------
-@routes.route('/reservierungen')
+@teilnehmer_routes.route('/reservierungen')
 @login_required
 def reservierungen():
     user_reservations = Reserviert.query.filter_by(kunden_nr=current_user.id).all()
@@ -118,52 +52,20 @@ def reservierungen():
 # -----------------------------------
 # Stornieren einer Reservierung
 # -----------------------------------
-@routes.route('/stornieren/<int:reservierungsnummer>', methods=['POST'])
+@teilnehmer_routes.route('/stornieren/<int:reservierungsnummer>', methods=['POST'])
 @login_required
 def stornieren(reservierungsnummer):
     reservation = Reserviert.query.get_or_404(reservierungsnummer)
     if reservation.kunden_nr == current_user.id:
         db.session.delete(reservation)
         db.session.commit()
-    return redirect(url_for('routes.reservierungen'))
+    return redirect('/reservierungen')
 
 # -----------------------------------
 # Seminardetails anzeigen
 # -----------------------------------
-@routes.route('/seminar/<datum>/<uhrzeit>')
+@teilnehmer_routes.route('/seminar/<datum>/<uhrzeit>')
 def seminar_details(datum, uhrzeit):
     seminar = Seminar.query.filter_by(datum=datum, uhrzeit=uhrzeit).first()
     return render_template('seminar_details.html', seminar=seminar)
 
-# -----------------------------------
-# Benutzerprofil bearbeiten
-# -----------------------------------
-@routes.route('/edit', methods=['GET', 'POST'])
-@login_required
-def edit_user():
-    ausbilder_liste = Ausbilder.query.all()
-    
-    if request.method == 'POST':
-        current_user.username = request.form['username']
-        current_user.vorname = request.form['vorname']
-        current_user.nachname = request.form['nachname']
-        current_user.plz = request.form['plz']
-        current_user.ort = request.form['ort']
-        current_user.strasse = request.form['strasse']
-        current_user.hausnr = request.form['hausnr']
-        current_user.telefonnummer = request.form['telefonnummer']
-        current_user.bevorzugter_ausbilder = request.form.get('bevorzugter_ausbilder', None)
-
-
-        db.session.commit()
-        return redirect(url_for('routes.edit_user')) # bleibe auf der edit Seite um Änderungen zu sehen
-    return render_template('edit_user.html', ausbilder_liste=ausbilder_liste)
-    
-# -----------------------------------
-# Logout Route
-# -----------------------------------
-@routes.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('routes.index'))

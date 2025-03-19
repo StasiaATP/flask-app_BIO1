@@ -1,15 +1,17 @@
 from flask import Flask
-from app.config import Config
-from app.models import db, User  # Import User model!
-from app import teilnehmer_routes
-from app.ausbilder_routes import ausbilder_routes
+from .config import Config
+from .models import db, User  # Import User model!
+from .common_routes import common_routes
+from .teilnehmer_routes import teilnehmer_routes
+from .ausbilder_routes import ausbilder_routes
 from flask_login import LoginManager
-from app.db_setup import setup_database
+from .db_setup import setup_database
 
 def create_app():
     app = Flask(__name__, static_folder="../static", template_folder="../templates") # Setting correct template & css-file (static--> modal.css) path.
     app.config.from_object(Config)
-    app.register_blueprint(teilnehmer_routes.routes)
+    app.register_blueprint(common_routes)
+    app.register_blueprint(teilnehmer_routes)
     app.register_blueprint(ausbilder_routes)
 
     setup_database(app)
