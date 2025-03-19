@@ -1,8 +1,8 @@
 """
-routes.py – Enthält alle Routen der Flask-App
+common_routes.py – Enthält alle gemeinsamen Routes (Webseiten)
 --------------------------------------------------------
-Dieses Modul definiert alle API-Endpunkte der Webanwendung, 
-einschließlich Login, Registrierung und Seminarverwaltung.
+Dieses Modul definiert alle gemeinsamen API-Endpunkte der Webanwendung, 
+einschließlich Login, Registrierung und Benutzerdatenverwaltung
 """
 
 from flask import Blueprint, render_template, request, redirect

@@ -1,8 +1,6 @@
 """
-routes.py – Enthält alle Routen der Flask-App
+teilnehmer_routes.py – Enthält alle Routes spezifisch für Teilnehmer
 --------------------------------------------------------
-Dieses Modul definiert alle API-Endpunkte der Webanwendung, 
-einschließlich Login, Registrierung und Seminarverwaltung.
 """
 
 from flask import Blueprint, render_template, request, redirect

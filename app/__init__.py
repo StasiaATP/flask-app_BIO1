@@ -4,6 +4,7 @@ from .models import db, User  # Import User model!
 from .common_routes import common_routes
 from .teilnehmer_routes import teilnehmer_routes
 from .ausbilder_routes import ausbilder_routes
+from .admin_routes import admin_routes
 from flask_login import LoginManager
 from .db_setup import setup_database
 
@@ -13,6 +14,7 @@ def create_app():
     app.register_blueprint(common_routes)
     app.register_blueprint(teilnehmer_routes)
     app.register_blueprint(ausbilder_routes)
+    app.register_blueprint(admin_routes)
 
     setup_database(app)
 
