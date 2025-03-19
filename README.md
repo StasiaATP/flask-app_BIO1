@@ -217,6 +217,7 @@ Falls du Fragen hast oder dieses Projekt erweitern möchtest, erstelle einfach e
 
 | Benutzername | Passwort | Typ         |
 | ------------ | -------- | ----------- |
+| admin        | adminpass| Administrator|
 | test         | test     | Teilnehmer  |
 | teilnehmer   | abc      | Teilnehmer  |
 | hans         | abc      | Ausbilder   |

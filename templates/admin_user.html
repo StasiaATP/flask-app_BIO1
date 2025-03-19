@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>Liste aller Personen</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Sozialversicherungsnummer</th>
+                    <th>Accounttyp</th>
+                    <th>Vorname</th>
+                    <th>Nachname</th>
+                    <th>PLZ</th>
+                    <th>Ort</th>
+                    <th>Straße</th>
+                    <th>Hausnummer</th>
+                    <th>Telefonnummer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for person in user %}
+                <tr>
+                    <td>{{ person.sozial_vers_nr }}</td>
+                    <td>{{ person.type.capitalize() }}</td>
+                    <td>{{ person.vorname }}</td>
+                    <td>{{ person.nachname }}</td>
+                    <td>{{ person.plz }}</td>
+                    <td>{{ person.ort }}</td>
+                    <td>{{ person.strasse }}</td>
+                    <td>{{ person.hausnr }}</td>
+                    <td>{{ person.telefonnummer or 'N/A' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

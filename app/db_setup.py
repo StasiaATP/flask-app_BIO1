@@ -14,8 +14,8 @@ from datetime import date, datetime
 import sqlite3
 import os
 from werkzeug.security import generate_password_hash
-from app.config import Config
-from app.models import *
+from .config import Config
+from .models import *
 
 def setup_database(app):
     # in case we are running the app for the first time, 
@@ -108,6 +108,16 @@ def populate_database():
             hausnr=data[8],
         )
         db.session.add(organisator)
+
+    # Administrator (es gibt nur einen):
+    # 
+    
+    admin = User(
+        username="admin",
+        password=generate_password_hash("adminpass"),
+    )
+    db.session.add(admin)
+
 
     # Kurse:
     # kursname, anzahl_organisatoren, vorbereitungsdauer, skriptentyp_nr, autor

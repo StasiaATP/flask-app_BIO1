@@ -44,11 +44,19 @@
                         <li class="nav-item"><a class="nav-link" href="/ausbilder_seminar_erstellen">Neues Seminar erstellen</a></li>
                     {% endif %}
 
+                    <!-- Falls der Benutzer Admin ist -->
+                    {% if current_user.is_authenticated and current_user.username == 'admin'%}
+                        <li class="nav-item"><a class="nav-link" href="/admin/user">User</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/admin/kurse">Kurse/Seminare</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/admin/neuer_organisator">Organisator anlegen</a></li>
+                    {% endif %}
+
                     <!-- Falls der Benutzer eingeloggt ist, erscheinen Bearbeiten & Logout -->
                     {% if current_user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link" href="/edit">Benutzerdaten bearbeiten</a></li>
                         <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
                     {% endif %}
+
                 </ul>
             </div>
         </div>

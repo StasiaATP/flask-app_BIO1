@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>Liste aller Kurse</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Kursname</th>
+                    <th>Anzahl Organisatoren</th>
+                    <th>Vorbereitungsdauer</th>
+                    <th>Skriptentyp</th>
+                    <th>Autor</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for kurs in kurse %}
+                <tr>
+                    <td>{{ kurs.kursname }}</td>
+                    <td>{{ kurs.anzahl_organisatoren }}</td>
+                    <td>{{ kurs.vorbereitungsdauer }} min</td>
+                    <td>{{ kurs.skriptentyp_nr }}</td>
+                    <td>{{ kurs.autor }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <h2 class="mt-5">Liste aller Seminare</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Seminar ID</th>
+                    <th>Kursname</th>
+                    <th>Datum</th>
+                    <th>Uhrzeit</th>
+                    <th>Straße</th>
+                    <th>Hausnummer</th>
+                    <th>PLZ</th>
+                    <th>Reservierungen</th>
+                    <th>Ausbilder</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for seminar in seminare %}
+                <tr>
+                    <td>{{ seminar.id }}</td>
+                    <td>{{ seminar.kursname }}</td>
+                    <td>{{ seminar.datum }}</td>
+                    <td>{{ seminar.uhrzeit }}</td>
+                    <td>{{ seminar.strasse }}</td>
+                    <td>{{ seminar.hausnr }}</td>
+                    <td>{{ seminar.plz }}</td>
+                    <td>{{ seminar.reservierungen.__len__() }}</td>
+                    <td>{{ seminar.ausbilder }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -76,6 +76,8 @@ class Ausbilder(Angestellte):
     kennzeichnung = Column(String, primary_key=True)
     datum_einstellung = Column(Date)
 
+    seminar_abhaltungen = db.relationship("BildetAus", back_populates="ausbilder")
+
     __mapper_args__ = {"polymorphic_identity": "ausbilder"}
 
 
@@ -114,6 +116,7 @@ class Seminar(db.Model):
 
     kurs = db.relationship("Kurs", back_populates="seminare")
     reservierungen = db.relationship("Reserviert", back_populates="seminar")
+    abhaltungen = db.relationship("BildetAus", back_populates="seminar")
 
     # Datum und Uhrzeit werden als DateTime-Objekt kombiniert gespeichert
     # Damit man auf beides einzeln zugreifen kann, werden properties definiert
@@ -124,6 +127,14 @@ class Seminar(db.Model):
     @property
     def uhrzeit(self):
         return self.datum_uhrzeit.time()
+    
+    @property
+    def ausbilder(self):
+        """Erstellt eine Liste aller Ausbilder (nur username) für die Adminseite"""
+        result = []
+        for abhaltung in self.abhaltungen:
+            result.append(abhaltung.ausbilder.username)
+        return ", ".join(result)
 
 
 # -------------------------------------------------------------------
@@ -178,8 +189,8 @@ class BildetAus(db.Model):
         String, ForeignKey("ausbilder.kennzeichnung"), primary_key=True
     )
 
-    seminar = db.relationship("Seminar")
-    ausbilder = db.relationship("Ausbilder")
+    seminar = db.relationship("Seminar", back_populates="abhaltungen")
+    ausbilder = db.relationship("Ausbilder", back_populates="seminar_abhaltungen")
 
 
 # -------------------------------------------------------------------
