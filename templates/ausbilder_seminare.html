@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-4">
+<div class="container reservierungen-container mt-4">
     <h2>Von mir geleitete Seminare</h2>
     {% if seminare %}
-    <table class="table table-striped">
+    <table class="table table-striped reservierungen-tabelle">
         <thead>
             <tr>
                 <th scope="col">ID</th>
@@ -48,7 +48,7 @@
 
     </table>
     {% else %}
-    <p>Sie leiten keine Seminare.</p>
+    <p class="text-white">Sie leiten keine Seminare.</p>
     {% endif %}
 </div>
 {% endblock %}

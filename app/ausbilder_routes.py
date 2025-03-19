@@ -46,7 +46,7 @@ def seminar_aendern(seminar_id):
     seminar = Seminar.query.get_or_404(seminar_id)
 
     if request.method == 'POST':
-        datum_uhrzeit_str = request.form['Datum Uhrzeit']
+        datum_uhrzeit_str = request.form['Datum_Uhrzeit']
         strasse = request.form['Strasse']
         hausnr = request.form['Hausnummer']
         plz = request.form['PLZ']
@@ -79,6 +79,7 @@ def seminar_loeschen(seminar_id):
     seminar = Seminar.query.get_or_404(seminar_id)
 
     BildetAus.query.filter_by(seminar_id=seminar_id).delete()
+    Reserviert.query.filter_by(seminar_id=seminar_id).delete()
 
     db.session.delete(seminar)
     db.session.commit()
@@ -98,8 +99,8 @@ def seminar_erstellen():
     # The values will appear in the dropdown-menu when creating a new Seminar
     kurs_names = KannAbhalten.query.filter_by(ausbilder_kennzeichnung=current_user.kennzeichnung).with_entities(KannAbhalten.kursname).distinct().all()
     if request.method == 'POST':
-        id = request.form['Seminar id']
-        datum_uhrzeit_str = request.form['Datum Uhrzeit']
+        id = request.form['Seminar_id']
+        datum_uhrzeit_str = request.form['Datum_Uhrzeit']
         strasse = request.form['Strasse']
         hausnr = request.form['Hausnummer']
         plz = request.form['PLZ']
@@ -138,6 +139,7 @@ def seminar_erstellen():
             db.session.add(neu_bildet_aus)
             db.session.commit()
 
-            return redirect(url_for('routes.index'))
+            return redirect(url_for('ausbilder_routes.geleitete_seminare_zeigen'))
+    
     
     return render_template('ausbilder_seminar_erstellen.html', error_message=error_message, kurs_names=kurs_names)

@@ -1,42 +1,49 @@
-{% if error_message %}
-    <div class="alert alert-danger" role="alert">
-        {{ error_message }}
-    </div>
-{% endif %}
-<h2>Neues Seminar erstellen</h2>
+{% extends 'base.html' %}
 
-<form method="POST" action="{{ url_for('ausbilder_routes.seminar_erstellen') }}">
-    <div class="form-group">
-        <label for="Seminar id">Seminar ID</label>
-        <input type="text" class="form-control" name="Seminar id" required>
-    </div>
-    <div class="form-group">
-        <label for="Datum Uhrzeit">Datum Uhrzeit (yyyy-mm-dd hh:mm:ss)</label>
-        <input type="text" class="form-control" name="Datum Uhrzeit" required>
-    </div>
-    <div class="form-group">
-        <label for="Strasse">Straße</label>
-        <input type="text" class="form-control" name="Strasse" required>
-    </div>
-    <div class="form-group">
-        <label for="Hausnummer">Hausnummer</label>
-        <input type="text" class="form-control" name="Hausnummer" required>
-    </div>
-    <div class="form-group">
-        <label for="PLZ">PLZ</label>
-        <input type="text" class="form-control" name="PLZ" required>
-    </div>
+{% block content %}
+    {% if error_message %}
+        <div class="alert alert-danger" role="alert">
+            {{ error_message }}
+        </div>
+    {% endif %}
 
-    <!-- Dropdown for Kursname -->
-    <div class="form-group">
-        <label for="Kurs">Kurs</label>
-        <select class="form-control" name="Kurs" required>
-            <option value="" disabled selected>Bitte wählen Sie einen Kurs</option>
-            {% for kurs in kurs_names %}
-                <option value="{{ kurs.kursname }}">{{ kurs.kursname }}</option>
-            {% endfor %}
-        </select>
-    </div>
+    <div class="edit-container">
+        <h2>Neues Seminar erstellen</h2>
 
-    <button type="submit" class="btn btn-primary">Seminar erstellen</button>
-</form>
+        <form method="POST" action="{{ url_for('ausbilder_routes.seminar_erstellen') }}">
+            <div class="mb-3">
+                <label for="Seminar_id" class="form-label">Seminar ID</label>
+                <input type="text" class="form-control" id="Seminar_id" name="Seminar_id" required>
+            </div>
+            <div class="mb-3">
+                <label for="Datum_Uhrzeit" class="form-label">Datum Uhrzeit (yyyy-mm-dd hh:mm:ss)</label>
+                <input type="text" class="form-control" id="Datum_Uhrzeit" name="Datum_Uhrzeit" required>
+            </div>
+            <div class="mb-3">
+                <label for="Strasse" class="form-label">Straße</label>
+                <input type="text" class="form-control" id="Strasse" name="Strasse" required>
+            </div>
+            <div class="mb-3">
+                <label for="Hausnummer" class="form-label">Hausnummer</label>
+                <input type="text" class="form-control" id="Hausnummer" name="Hausnummer" required>
+            </div>
+            <div class="mb-3">
+                <label for="PLZ" class="form-label">PLZ</label>
+                <input type="text" class="form-control" id="PLZ" name="PLZ" required>
+            </div>
+
+            <!-- Dropdown for Kursname -->
+            <div class="mb-3">
+                <label for="Kurs" class="form-label">Kurs</label>
+                <select class="form-select" id="Kurs" name="Kurs" required>
+                    <option value="" disabled selected>Bitte wählen Sie einen Kurs</option>
+                    {% for kurs in kurs_names %}
+                        <option value="{{ kurs.kursname }}">{{ kurs.kursname }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-orange">Seminar erstellen</button>
+        </form>
+    </div>
+{% endblock %}

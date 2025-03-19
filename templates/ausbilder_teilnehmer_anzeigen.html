@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-4">
+<div class="container reservierungen-container mt-4">
     <h2>Teilnehmer für das Seminar</h2>
     
     {% if personen %}
-    <table class="table table-striped">
+    <table class="table table-striped reservierungen-tabelle">
         <thead>
             <tr>
                 <th>ID</th>
@@ -26,7 +26,7 @@
         </tbody>
     </table>
     {% else %}
-    <p>Keine Teilnehmer für dieses Seminar.</p>
+    <p class="text-white">Keine Teilnehmer für dieses Seminar.</p>
     {% endif %}
     
     <a class="btn btn-secondary mt-3" href="{{ url_for('ausbilder_routes.geleitete_seminare_zeigen') }}">Zurück</a>
