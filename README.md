@@ -86,7 +86,7 @@ flask-app_BIO1/
 ### 1.1 Klone das Repository:
 ```bash
 git clone https://github.com/StasiaATP/flask-app_BIO1
-cd devtrack
+cd flask-app_BIO1/
 ```
 ### 1.2 Erstelle eine virtuelle Umgebung und installiere Abhängigkeiten:
 ```bash
