@@ -1,4 +1,10 @@
-**DEVTRACK - Seminarverwaltungssystem**
+<center>
+
+# **DEVTRACK - Seminarverwaltungssystem**
+
+</center>
+
+
 
 **Projektbeschreibung**
 
@@ -43,7 +49,7 @@ SQLAlchemy==2.0.39
 typing_extensions==4.12.2
 Werkzeug==3.1.3
 WTForms==3.2.1
-
+```
 
 ### Projektstruktur in VS Code
 
@@ -73,7 +79,7 @@ flask-app_BIO1/
 │   │── ausbilder_seminare.html
 │── requirements.txt
 │── README.md
-
+```
 
 
 **1. Erste Schritte: Installation & Setup:**
