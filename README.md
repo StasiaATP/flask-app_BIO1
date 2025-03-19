@@ -4,6 +4,7 @@
 
 </center>
 
+![devtrack_logo](https://github.com/user-attachments/assets/dee786fd-5a61-4a20-9e97-63afabbf96fb)
 
 
 **Projektbeschreibung**
