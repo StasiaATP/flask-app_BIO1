@@ -81,32 +81,28 @@ flask-app_BIO1/
 │── README.md
 ```
 
+## 1. Erste Schritte: Installation & Setup
 
-**1. Erste Schritte: Installation & Setup:**
-
-*1.1 Klone das Repository:*
-
-git clone https://github.com/dein-repo/devtrack.git
+### 1.1 Klone das Repository:
+```bash
+git clone https://github.com/StasiaATP/flask-app_BIO1
 cd devtrack
-
-
-*1.2 Erstelle eine virtuelle Umgebung und installiere Abhängigkeiten:*
-
+```
+### 1.2 Erstelle eine virtuelle Umgebung und installiere Abhängigkeiten:
+```bash
 python3 -m venv venv
 source venv/bin/activate  # Mac/Linux
 venv\Scripts\activate    # Windows
 pip install -r requirements.txt
-
-
-*1.3 Datenbank initialisieren:*
-
+```
+### 1.3 Datenbank initialisieren:
+```bash
 python app/db_setup.py
-
-
-*1.4 Starte die Anwendung:*
-
+```
+### 1.4 Starte die Anwendung:
+```bash
 flask run
-
+```
 Die Anwendung läuft nun unter http://127.0.0.1:5000/.
 
 
@@ -186,7 +182,7 @@ Die Implementierung der Login-Logik war schwieriger als erwartet. Besonders tric
 - Zugriffsbeschränkungen richtig setzen (z. B. sollte ein Teilnehmer nicht plötzlich Organisator-Funktionen sehen).
 
 
-**5.Was wir verbessern könnten & zukünftige Erweiterungen**
+**5. Was wir verbessern könnten & zukünftige Erweiterungen**
 
 5.1 Zusätzliche Funktionalitäten (basierend auf dem REL-Schema) - wir haben eine solide Basis geschaffen, aber das System könnte noch smarter werden. 
 
