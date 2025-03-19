@@ -40,6 +40,7 @@
             <label for="telefonnummer" class="form-label">Telefonnummer</label>
             <input type="text" class="form-control" id="telefonnummer" name="telefonnummer" value="{{ current_user.telefonnummer }}" required>        
         </div>
+        {% if current_user.type == 'teilnehmer' %}
         <div class="mb-3">
             <label for="bevorzugter_ausbilder" class="form-label">Bevorzugter Ausbilder</label>
             <select class="form-select" id="bevorzugter_ausbilder" name="bevorzugter_ausbilder">
@@ -50,7 +51,8 @@
                     </option>
                 {% endfor %}
             </select>
-        </div>    
+        </div>   
+        {% endif %} 
         <button class="btn btn-orange">Ändern</button>
     </form>
 </div>

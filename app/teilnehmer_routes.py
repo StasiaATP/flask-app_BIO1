@@ -102,7 +102,7 @@ def reserve():
                 )
                 db.session.add(new_reservation)
                 db.session.commit()
-                return redirect(url_for('routes.index'))
+                return redirect(url_for('routes.reservierungen')) # leite weiter zu Reservierungen
     seminars = Seminar.query.all()
     return render_template('reserve.html', seminars=seminars)
 
@@ -156,7 +156,7 @@ def edit_user():
 
 
         db.session.commit()
-        return redirect(url_for('routes.index'))
+        return redirect(url_for('routes.edit_user')) # bleibe auf der edit Seite um Änderungen zu sehen
     return render_template('edit_user.html', ausbilder_liste=ausbilder_liste)
     
 # -----------------------------------
