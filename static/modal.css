@@ -7,6 +7,7 @@
     margin: 0;
     padding: 0;
     min-height: 100vh;
+    padding-top: 150px; /* Damit die Navbar nicht mit dem Inhalt überlappt
 }
 
 /* ==========================
@@ -15,7 +16,7 @@
 .navbar {
     background-color: #120200 !important;
     padding: 10px 20px;
-    height: 100px;
+    height: 150px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -82,7 +83,7 @@
 
 /* Korrigiert: Abstand zur Navbar für Hauptcontainer */
 .main-container {
-    margin-top: 180px;
+    /* margin-top: 180px; */
     text-align: center;
 }
 
@@ -108,7 +109,7 @@
    5️. FORMULAR DESIGN
    ========================== */
 .login-container, .register-container, .edit-container, .reserve-container {
-    margin-top: 150px !important;
+    /*margin-top: 150px !important;*/
     text-align: left;
     max-width: 500px;
     margin-left: 50px;
@@ -162,7 +163,7 @@ input, select {
    7️. RESERVIERUNGSTABELLE
    ========================== */
 .reservierungen-container {
-    margin-top: 140px;
+    /* margin-top: 140px; */
     text-align: center;
 }
 
@@ -211,7 +212,7 @@ input, select {
 
 /* Abstand der gesamten Reservierungen-Seite */
 .reservierungen-container {
-    margin-top: 180px !important;  /* Erhöhe den Wert, falls nötig */
+    /* margin-top: 180px !important; */  /* Erhöhe den Wert, falls nötig */
     text-align: center;
 }
 
