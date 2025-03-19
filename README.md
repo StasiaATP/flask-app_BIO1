@@ -1,4 +1,4 @@
-                                                                              **DEVTRACK - Seminarverwaltungssystem**
+**DEVTRACK - Seminarverwaltungssystem**
 
 **Projektbeschreibung**
 
@@ -20,8 +20,9 @@
 - GitHub – Versionierung & Zusammenarbeit
 
 
-*Verwendete Python-Bibliotheken (requirements.txt):*
+### Verwendete Python-Bibliotheken (requirements.txt)
 
+```plaintext
 alembic==1.15.1
 blinker==1.9.0
 click==8.1.8
@@ -44,8 +45,9 @@ Werkzeug==3.1.3
 WTForms==3.2.1
 
 
-**Projekt Struktur in VS Code:**
+### Projektstruktur in VS Code
 
+```plaintext
 flask-app_BIO1/
 │── app/
 │   │── __init__.py
@@ -71,6 +73,7 @@ flask-app_BIO1/
 │   │── ausbilder_seminare.html
 │── requirements.txt
 │── README.md
+
 
 
 **1. Erste Schritte: Installation & Setup:**
