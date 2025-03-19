@@ -158,7 +158,7 @@ def edit_user():
         db.session.commit()
         return redirect(url_for('routes.index'))
     return render_template('edit_user.html', ausbilder_liste=ausbilder_liste)
-
+    
 # -----------------------------------
 # Logout Route
 # -----------------------------------

@@ -1,0 +1,236 @@
+/* ==========================
+   1. GLOBAL STYLES
+   ========================== */
+   body {
+    background-color: #120200 !important;   /* Farbe nach dem Logofarbe angepasst! */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+/* ==========================
+   2️. NAVIGATION (Navbar & Logo)
+   ========================== */
+.navbar {
+    background-color: #120200 !important;
+    padding: 10px 20px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.navbar .nav-link {
+    color: orange !important;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar .nav-link:hover {
+    color: yellow !important;
+}
+
+.header-logo {
+    height: 200px;
+    width: auto;
+    margin-left: 20px;
+    background-color: #120200;
+}
+
+/* ==========================
+   3️. WILLKOMMENSSEITE (Homepage)
+   ========================== */
+.welcome-text {
+    color: yellow !important;
+    font-weight: bold;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.subtitle {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+}
+
+.dynamic-text {
+    font-size: 1.3rem;
+    color: white;
+    font-weight: 400;
+    white-space: normal;
+    overflow: visible;   
+    min-width: unset;    
+    max-width: 100%;     
+}
+
+.blinker {
+    animation: blink 0.6s infinite;
+    color: orange;
+    font-weight: bold;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* Korrigiert: Abstand zur Navbar für Hauptcontainer */
+.main-container {
+    margin-top: 180px;
+    text-align: center;
+}
+
+/* ==========================
+   4️. BUTTONS & INTERAKTIVE ELEMENTE
+   ========================== */
+.btn-orange {
+    background-color: #ff8c00 !important;
+    color: white !important;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 30px;
+}
+
+.btn-orange:hover {
+    background-color: #e07b00 !important;
+}
+
+/* ==========================
+   5️. FORMULAR DESIGN
+   ========================== */
+.login-container, .register-container, .edit-container, .reserve-container {
+    margin-top: 150px !important;
+    text-align: left;
+    max-width: 500px;
+    margin-left: 50px;
+    color: white;
+}
+
+h2 {
+    color: yellow !important;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+label {
+    color: #ffcc00 !important;
+    font-size: 1rem !important;
+    font-weight: bold !important;
+    display: block !important;
+    margin-bottom: 3px !important;
+}
+
+input, select {
+    background-color: #1a0d0d;
+    color: white;
+    border: 2px solid orange;
+    padding: 5px;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 0.9rem;
+}
+
+/* ==========================
+   6️. SEMINAR-RESERVIERUNGEN
+   ========================== */
+.reserve-container .btn-primary {
+    background-color: orange !important;
+    color: white !important;
+    border-radius: 5px;
+    padding: 8px 15px;
+    font-size: 1rem;
+    display: block;
+    margin: 20px auto 0;
+    text-align: center;
+}
+
+.reserve-container .btn-primary:hover {
+    background-color: #e07b00 !important;
+}
+
+/* ==========================
+   7️. RESERVIERUNGSTABELLE
+   ========================== */
+.reservierungen-container {
+    margin-top: 140px;
+    text-align: center;
+}
+
+.reservierungen-container .table {
+    background-color: #1a0d0d !important;
+    color: white !important;
+    border-radius: 10px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+
+.reservierungen-container .table thead {
+    background-color: orange !important;
+    color: black !important;
+}
+
+.reservierungen-container .table thead th {
+    padding: 12px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 3px solid #120200;
+}
+
+.reservierungen-container .table tbody td {
+    background-color: #2b1b1b;
+    color: white !important;
+    padding: 10px;
+    font-size: 1rem;
+    text-align: center;
+    border-top: 2px solid orange !important;
+}
+
+.reservierungen-container .btn-danger {
+    background-color: red !important;
+    color: white !important;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.reservierungen-container .btn-danger:hover {
+    background-color: darkred !important;
+}
+
+/* Abstand der gesamten Reservierungen-Seite */
+.reservierungen-container {
+    margin-top: 180px !important;  /* Erhöhe den Wert, falls nötig */
+    text-align: center;
+}
+
+/* Falls die Tabelle weiterhin zu weit oben sitzt */
+.reservierungen-container .table {
+    margin-top: 40px !important; /* Erhöhe, falls die Tabelle noch zu nah an der Navigation ist */
+}
+
+/* ==========================
+   8️. RESPONSIVE DESIGN
+   ========================== */
+@media (max-width: 768px) {
+    .login-container, .register-container, .reserve-container, .edit-container {
+        max-width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    input, select {
+        max-width: 100%;
+    }
+}
