@@ -164,7 +164,7 @@ Die Anwendung läuft nun unter http://127.0.0.1:5000/.
 | **Anastasia Ceta & Sabina Raykova** | Teilnehmer-Dashboard, Login/Register und Datenverwaltung (common_routes.py), CSS Styling, HTMLs (Teilnehmer und personenbezogenen HTMLs) |
 | **Edit Felföldi**            | Ausbilder-Dashboard, Ausbilder Routes, HTMLs für Ausbilder, Seminarverwaltung |
 | **Nicholas Wedige**          | Organisator-Dashboard, Kursverwaltung, Teilnehmerzahl-Überwachung |
-| **Doris Steinbauer**         | Datenbankstruktur (models.py,db_setup.py), Fehlerbeseitigung, Admin-Dashboard (admin_routes.py) |
+| **Doris Steinbauer**         | Datenbankstruktur (models.py, db_setup.py), Fehlerbeseitigung, Admin-Dashboard (admin_routes.py plus HTMLs), Anpassungen in CSS |
 
 
 **4. 🚀 Lessons Learned & Fazit**
@@ -200,6 +200,7 @@ Beispiele:
     - Automatische Benachrichtigungen → Teilnehmer erhalten eine E-Mail, wenn sich ihr Seminar ändert;
     - Maximale Teilnehmerzahl pro Seminar → Reservierungen verhindern, wenn Kurs voll ist;
     - Bevorzugte Ausbilder mit Bewertungen → Teilnehmer könnten ihre Favoriten markieren oder eine z.B Sternebewertung abgeben ...
+    - Sicherheitsabfragen → Wenn man die Links/Routes kennt, kann man auf alle Daten zugreifen, weil im Backend nur geprüft wird, ob man eingeloggt ist.
 
 
 5.2 Bessere Planung des CSS-Designs von Anfang an:
