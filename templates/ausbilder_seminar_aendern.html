@@ -39,19 +39,19 @@
         <form method="POST" action="{{ url_for('ausbilder_routes.seminar_aendern', seminar_id=seminar.id) }}">
             <div class="mb-3">
                 <label for="Datum_Uhrzeit" class="form-label">Datum Uhrzeit (yyyy-mm-dd hh:mm:ss)</label>
-                <input type="text" class="form-control" id="Datum_Uhrzeit" name="Datum_Uhrzeit" required>
+                <input type="text" class="form-control" id="Datum_Uhrzeit" name="Datum_Uhrzeit" value="{{ seminar.datum_uhrzeit }}"required autofocus>
             </div>
             <div class="mb-3">
                 <label for="Strasse" class="form-label">Straße</label>
-                <input type="text" class="form-control" id="Strasse" name="Strasse" required>
+                <input type="text" class="form-control" id="Strasse" name="Strasse" value="{{ seminar.strasse }}" required>
             </div>
             <div class="mb-3">
                 <label for="Hausnummer" class="form-label">Hausnummer</label>
-                <input type="text" class="form-control" id="Hausnummer" name="Hausnummer" required>
+                <input type="text" class="form-control" id="Hausnummer" name="Hausnummer" value="{{ seminar.hausnr }}" required>
             </div>
             <div class="mb-3">
                 <label for="PLZ" class="form-label">PLZ</label>
-                <input type="text" class="form-control" id="PLZ" name="PLZ" required>
+                <input type="text" class="form-control" id="PLZ" name="PLZ" value="{{ seminar.plz }}" required>
             </div>
 
             <button type="submit" class="btn btn-orange">Seminar ändern</button>

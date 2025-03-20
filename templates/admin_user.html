@@ -7,7 +7,7 @@
         <!-- Suchfeld -->
         <form method="GET" action="/admin/user" class="mb-3">
             <div class="input-group">
-                <input type="text" class="form-control" name="search" placeholder="Suche nach Name oder Accounttyp..." value="{{ request.args.get('search', '') }}">
+                <input type="text" class="form-control" name="search" placeholder="Suche nach Name oder Accounttyp..." value="{{ request.args.get('search', '') }}" autofocus>
                 <button type="submit" class="btn btn-primary">Suchen</button>
             </div>
         </form>
