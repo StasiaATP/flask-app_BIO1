@@ -17,14 +17,14 @@ In unserem **DEVTRACK-Projekt** haben wir an verschiedenen Stellen AI-Tools (pri
 ###  1. CSS & Frontend-Design
 Da das Styling in einem größeren Projekt schnell unübersichtlich werden kann, haben wir AI genutzt, um:
 
-✅ Vorschläge für **CSS-Strukturierung** und **Responsive Design** zu erhalten.  
-✅ Fehlerhafte Darstellungen und **Overlapping-Probleme** zu beheben.  
-✅ Bestehende **Bootstrap-Komponenten** für unsere Zwecke genau anzupassen.  
+Vorschläge für **CSS-Strukturierung** und **Responsive Design** zu erhalten.  
+Fehlerhafte Darstellungen und **Overlapping-Probleme** zu beheben.  
+Bestehende **Bootstrap-Komponenten** für unsere Zwecke genau anzupassen.  
 
 ###  2. Fehlersuche & Debugging
 
-✅ AI wurde zur Analyse von **Fehlermeldungen** genutzt, insbesondere bei **Flask-Blueprints**, **SQLAlchemy-Fehlermeldungen** und **Flask-Login**.  
-✅ Komplexe Fehlermeldungen konnten schneller eingeordnet und behoben werden.  
+AI wurde zur Analyse von **Fehlermeldungen** genutzt, insbesondere bei **Flask-Blueprints**, **SQLAlchemy-Fehlermeldungen** und **Flask-Login**.  
+Komplexe Fehlermeldungen konnten schneller eingeordnet und behoben werden.  
 
 ###  3. AI vs. klassische Online-Recherche
 
@@ -33,9 +33,9 @@ Während StackOverflow, Flask- und SQLAlchemy-Dokumentationen eine großartige R
 
 ###  4. Limitationen von AI
 
-❌ AI generiert nicht immer **fehlerfreien Code**, besonders bei spezifischen Flask-Konfigurationen.  
-❌ Vorschläge müssen **kritisch geprüft** und an die Projektanforderungen angepasst werden.  
-❌ AI ist stark von den **gestellten Fragen** abhängig – präzise Prompts bringen bessere Ergebnisse.  
+AI generiert nicht immer **fehlerfreien Code**, besonders bei spezifischen Flask-Konfigurationen.  
+Vorschläge müssen **kritisch geprüft** und an die Projektanforderungen angepasst werden.  
+AI ist stark von den **gestellten Fragen** abhängig – präzise Prompts bringen bessere Ergebnisse.  
 
 ---
 
@@ -44,5 +44,5 @@ Während StackOverflow, Flask- und SQLAlchemy-Dokumentationen eine großartige R
 > **"Mit großem Code kommt großes Debugging!"**
 
 Unser **AI-Buddy** hat uns in vielen Bereichen Zeit gespart, insbesondere bei der **Fehlersuche**. Dennoch bleibt die klassische **Recherche auf Entwickler-Foren** unverzichtbar, besonders wenn es um spezielle **Framework-Probleme** geht.  
-**ChatGPT-4o** eignet sich hervorragend zur **Erklärung, Strukturierung und Optimierung**, aber **denken & testen** müssen wir selbst! 🚀
+**ChatGPT-4o** eignet sich hervorragend zur **Erklärung, Strukturierung und Optimierung**, aber **denken & testen** müssen wir selbst! 
 
