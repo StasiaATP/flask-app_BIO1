@@ -2,7 +2,7 @@
 admin_routes.py – Enthält alle Routen für admin User
 """
 
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, render_template, request, redirect, session
 from flask_login import login_required, current_user
 from werkzeug.security import generate_password_hash
 from .models import db, Person, Teilnehmer, Ausbilder, Kurs, Seminar, Organisator
@@ -24,10 +24,22 @@ def admin_required(func):
 # -----------------------------------
 # Alle User anzeigen (Admin-Ansicht)
 # -----------------------------------
-@admin_routes.route('/admin/user')
+@admin_routes.route('/admin/user') # methods=['GET'] ist immer default
 @admin_required
 def admin_user():
-    user = Person.query.all()
+    search_query = request.args.get('search', '').strip()  # Holt den Suchbegriff aus der URL
+    
+    if search_query:
+        # Suche nach Vorname, Nachname oder Accoounttyp (case-insensitive), ilike für case-insensitive Suche
+        user = Person.query.filter(
+            (Person.vorname.ilike(f"%{search_query}%")) |   # Suche in diesen Feldern möglich
+            (Person.nachname.ilike(f"%{search_query}%")) |
+            (Person.username.ilike(f"%{search_query}%")) |
+            (Person.type.ilike(f"%{search_query}%"))
+        ).all()
+    else:
+        user = Person.query.all()  # Alle User anzeigen, wenn keine Suche aktiv ist
+
     return render_template('admin_user.html', user=user)
 
 # -----------------------------------
@@ -38,6 +50,7 @@ def admin_user():
 def admin_kurse():
     kurse = Kurs.query.all()
     seminare = Seminar.query.all()
+    session["last_page"] = "/admin/kurse"
     return render_template('admin_kurse.html', kurse=kurse, seminare=seminare)
 
 # -----------------------------------

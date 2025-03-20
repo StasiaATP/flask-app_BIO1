@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, session
 from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
 from app.models import db, User, Teilnehmer, Seminar, Reserviert, Ausbilder, BildetAus, Person, Kurs, KannAbhalten
@@ -13,6 +13,7 @@ ausbilder_routes = Blueprint('ausbilder_routes', __name__)
 @ausbilder_routes.route('/ausbilder_seminare')
 @login_required
 def geleitete_seminare_zeigen():
+    session["last_page"] = "/ausbilder_seminare"
     geleitete_seminare = BildetAus.query.filter_by(ausbilder_kennzeichnung=current_user.kennzeichnung).all()
     return render_template('ausbilder_seminare.html', seminare=geleitete_seminare)
 
@@ -34,7 +35,7 @@ def teilnehmer_anzeigen(seminar_id):
         sv_nrs = [t.sozial_vers_nr for t in teilnehmer]  # Liste von SV-Nummern
         personen = Person.query.filter(Person.sozial_vers_nr.in_(sv_nrs)).all()
 
-    return render_template('ausbilder_teilnehmer_anzeigen.html', personen=personen)
+    return render_template('ausbilder_teilnehmer_anzeigen.html', personen=personen, zurueck=session["last_page"])
 
 # -----------------------------------
 # Seminar ändern
@@ -84,7 +85,7 @@ def seminar_loeschen(seminar_id):
     db.session.delete(seminar)
     db.session.commit()
 
-    return redirect(url_for('ausbilder_routes.geleitete_seminare_zeigen'))
+    return redirect(session["last_page"])
 
 
 # -----------------------------------

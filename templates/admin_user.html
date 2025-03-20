@@ -3,6 +3,15 @@
 {% block content %}
     <div class="container mt-4">
         <h2>Liste aller Personen</h2>
+
+        <!-- Suchfeld -->
+        <form method="GET" action="/admin/user" class="mb-3">
+            <div class="input-group">
+                <input type="text" class="form-control" name="search" placeholder="Suche nach Name oder Accounttyp..." value="{{ request.args.get('search', '') }}">
+                <button type="submit" class="btn btn-primary">Suchen</button>
+            </div>
+        </form>
+
         <table class="table table-striped">
             <thead>
                 <tr>
