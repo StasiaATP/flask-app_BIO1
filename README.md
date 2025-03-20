@@ -56,30 +56,40 @@ WTForms==3.2.1
 
 ```plaintext
 flask-app_BIO1/
-│── app/
-│   │── __init__.py
-│   │── config.py
-│   │── db_setup.py
-│   │── models.py
-│   │── teilnehmer_routes.py
-│   │── ausbilder_routes.py
-│── instance/
-│── static/
-│   │── modal.css
-│   │── devtrack_logo.png
-│   │── programming.png
-│── templates/
-│   │── base.html
-│   │── index.html
-│   │── login.html
-│   │── register.html
-│   │── edit_user.html
-│   │── reserve.html
-│   │── reservierungen.html
-│   │── seminar_details.html
-│   │── ausbilder_seminare.html
-│── requirements.txt
-│── README.md
+├── AI_Buddy.md
+├── app
+│   ├── admin_routes.py
+│   ├── ausbilder_routes.py
+│   ├── common_routes.py
+│   ├── config.py
+│   ├── db_setup.py
+│   ├── __init__.py
+│   ├── models.py
+│   └── teilnehmer_routes.py
+├── instance
+├── README.md
+├── requirements.txt
+├── static
+│   ├── devtrack_logo.png
+│   ├── modal.css
+│   └── programming.png
+└── templates
+    ├── admin_kurse.html
+    ├── admin_neuer_organisator.html
+    ├── admin_user.html
+    ├── ausbilder_seminar_aendern.html
+    ├── ausbilder_seminare.html
+    ├── ausbilder_seminar_erstellen.html
+    ├── ausbilder_teilnehmer_anzeigen.html
+    ├── base.html
+    ├── edit_user.html
+    ├── index.html
+    ├── login.html
+    ├── register.html
+    ├── reserve.html
+    ├── reservierungen.html
+    └── seminar_details.html
+
 ```
 
 ## 1. Erste Schritte: Installation & Setup
