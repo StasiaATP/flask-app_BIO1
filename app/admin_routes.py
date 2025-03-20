@@ -59,7 +59,7 @@ def register():
         ort = request.form['ort']
         strasse = request.form['strasse']
         hausnr = request.form['hausnr']
-        telefonnummer = request.form['telefonnummer']
+        telefonnummer = request.form['telefonnummer'] or None # Eingabe einer Telefonnummer soll optional sein
 
         # Organisator speichern
         organisator = Organisator(

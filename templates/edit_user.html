@@ -38,7 +38,7 @@
         </div>
         <div class="mb-3">
             <label for="telefonnummer" class="form-label">Telefonnummer</label>
-            <input type="text" class="form-control" id="telefonnummer" name="telefonnummer" value="{{ current_user.telefonnummer }}" required>        
+            <input type="text" class="form-control" id="telefonnummer" name="telefonnummer" value="{{ current_user.telefonnummer }}">        
         </div>
         {% if current_user.type == 'teilnehmer' %}
         <div class="mb-3">

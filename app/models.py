@@ -36,7 +36,7 @@ class Person(User):
     ort = Column(String, nullable=False)
     strasse = Column(String, nullable=False)
     hausnr = Column(String, nullable=False)
-    telefonnummer = Column(String)
+    telefonnummer = Column(String)   # Telefonnummer soll optional sein, nullable=True ist default
 
     __mapper_args__ = {"polymorphic_identity": "person"}
 
