@@ -13,6 +13,7 @@ Wichtig:
 from datetime import date, datetime
 import sqlite3
 import os
+import random
 from werkzeug.security import generate_password_hash
 from .config import Config
 from .models import *
@@ -41,10 +42,20 @@ def populate_database():
     """Fülle die Datenbank mit Beispieldaten zum Testen"""
 
     # Teilnehmer:
-    # username, password, sozial_vers_nr, vorname, nachname, plz, ort, strasse, hausnr
+    # username, password, sozial_vers_nr, vorname, nachname, plz, ort, strasse, hausnr, telefonnummer
     teilnehmer_data = [
-        ("test", "test", 1, "Test", "User", 1000, "Wien", "Teststrasse", 1, "06641234567"),
-        ("teilnehmer", "abc", 2, "Max", "Mustermann", 1000, "Wien", "Musterstraße", 9, "06649876543"),
+        ("test", "test", 1234050689, "Test", "User", 1000, "Wien", "Teststrasse", 45, "06641234567"),
+        ("teilnehmer", "abc", 2345060978, "Max", "Mustermann", 1000, "Wien", "Musterstraße", 2, "06649876543"),
+        ("john", "abc", 5698120565, "John", "Doe", 10115, "Berlin", "Hauptstraße", 3, "01761234567"),
+        ("mariah", "abc", 1252220180, "Mariah", "González", 28001, "Madrid", "Calle Mayor", 56, "34911234567"),
+        ("ali", "abc", 25250206993, "Ali", "Khan", 75001, "Paris", "Rue de Rivoli", 98, "33161234567"),
+        ("chen", "abc", 4896020180, "Chen", "Wei", 100000, "Beijing", "Chang’an Avenue", 5, "8613912345678"),
+        ("aisha", "abc", 3366080775, "Aisha", "Mohamed", 110001, "Cairo", "Tahrir Square", 14, "201234567890"),
+        ("ivan", "abc", 1556120377, "Ivan", "Petrov", 125009, "Moscow", "Tverskaya Street", 15, "74951234567"),
+        ("satoshi", "abc", 8252251202, "Satoshi", "Takahashi", 1000001, "Tokyo", "Chuo Dori", 58, "81312345678"),
+        ("fatima", "abc", 2522291088, "Fatima", "Al-Farsi", 113, "Dubai", "Sheikh Zayed Road", 24, "971501234567"),
+        ("luca", "abc", 250130696, "Luca", "Rossi", 20121, "Milan", "Via Montenapoleone", 1, "393471234567"),
+        ("emily", "abc", 1554060604, "Emily", "Smith", 90001, "Los Angeles", "Sunset Boulevard", 27, "13231234567")
     ]
 
     for data in teilnehmer_data:
@@ -66,9 +77,14 @@ def populate_database():
     # Ausbilder:
     # username, password, sozial_vers_nr, vorname, nachname, plz, ort, strasse, hausnr, kennzeichnung, konto_nr, kontostand, datum_einstellung
     ausbilder_data = [
-            ( "hans", "abc", 10, "Hans", "Mayer", 1010, "Wien", "Am Graben", 5, "AT123456789", 1000, date(2025, 1, 1)),
-            ( "maria", "abc", 11, "Maria", "Schmid", 1090, "Wien", "Weg", 12, "AT99977742", 0, date(2024, 10, 1)),
-            ( "gerold", "abc", 12, "Gerold", "Mauer", 1190, "Wien", "Gasse", 8, "AT88877848", 10000, date(2022, 10, 1)),
+            ("hans", "abc", 5482060989, "Hans", "Mayer", 1010, "Wien", "Am Graben", 10, "AT123456789", 1000, date(2025, 1, 1)),
+            ("maria", "abc", 9875250677, "Maria", "Schmid", 1090, "Wien", "Weg", 12, "AT99977742", 0, date(2024, 10, 1)),
+            ("gerold", "abc", 6798160756, "Gerold", "Mauer", 1190, "Wien", "Gasse", 8, "AT88877848", 10000, date(2022, 10, 1)),
+            ("nikola", "abc", 3816030574, "Nikola", "Jovanović", 11000, "Belgrad", "Knez Mihailova", 1, "RS123456789", 1200, date(2025, 2, 15)),
+            ("emma", "abc", 4856021297, "Emma", "Lindberg", 11120, "Stockholm", "Drottninggatan", 24, "SE987654321", 1300, date(2025, 3, 10)),
+            ("martin", "abc", 1879151085, "Martin", "Hansen", 1050, "Kopenhagen", "Strøget", 55, "DK123456789", 1100, date(2025, 4, 5)),
+            ("elena", "abc", 3698230684, "Elena", "Petrova", 1000, "Sofia", "Vitosha Boulevard", 12, "BG987654321", 900, date(2021, 5, 20)),
+            ("antti", "abc", 9742080972, "Antti", "Korhonen", 10781, "Helsinki", "Mannerheimintie", 104, "FI123456789", 800, date(2024, 6, 8))
             ]
 
     for data in ausbilder_data:
@@ -92,7 +108,10 @@ def populate_database():
     # Organisator:
     # username, password, sozial_vers_nr, vorname, nachname, plz, ort, strasse, hausnr
     organisator_data = [
-            ( "org", "abc", 20, "Peter", "Huber", 1030, "Wien", "Die Straße", 3),
+            ("org", "abc", 2440121285, "Peter", "Huber", 1030, "Wien", "Die Straße", 3),
+            ("renee", "abc", 1120180578, "Renee", "Baider", 1080, "Wien", "Kleine Gasse", 37),
+            ("mustafa", "abc", 3320281099, "Mustafa", "Ibrahim", 1010, "Wien", "Bergstraße", 78),
+            ("rosa", "abc", 2045110605, "Rosa", "Roth", 1020, "Wien", "Wandstraße", 45)
             ]
 
     for data in organisator_data:
@@ -110,17 +129,16 @@ def populate_database():
         db.session.add(organisator)
 
     # Administrator (es gibt nur einen):
-    # 
     
     admin = User(
         username="admin",
-        password=generate_password_hash("adminpass"),
+        password=generate_password_hash("admin"),
     )
     db.session.add(admin)
 
 
     # Kurse:
-    # kursname, anzahl_organisatoren, vorbereitungsdauer, skriptentyp_nr, autor
+    # kursname, anzahl_organisatoren, vorbereitungsdauer, skriptentyp_nr, skriptautor
     kurse_data = [
         ('Python Grundlagen', 2, 40, 1, "Hans Mayer"),
         ('Flask Webentwicklung', 3, 50, 2, "Maria Huber"),
@@ -188,12 +206,13 @@ def populate_database():
             (1, 17),
     ]
 
-    for data in reserviert_data:
-        reservierung = Reserviert(
-            kunden_nr=data[0],
-            seminar_id=data[1]
-        )
-        db.session.add(reservierung)
+    for kunden_nr in range(1, len(teilnehmer_data)+1):
+        for seminar_id in random.sample(range(1, len(seminare_data)+1), 5):
+            reservierung = Reserviert(
+                kunden_nr=kunden_nr,
+                seminar_id=seminar_id,
+            )
+            db.session.add(reservierung)
 
     # BildetAus (wer hält welchen Kurs ab):
     bildet_aus_data = [
@@ -259,4 +278,3 @@ def populate_database():
 
     # Führe alle obigen Aktionen aus und speichere die Änderungen in der Datenbank
     db.session.commit()
-    print("Datenbank erfolgreich mit Kursen und Seminaren befüllt.")

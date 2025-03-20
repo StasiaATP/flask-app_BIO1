@@ -6,8 +6,8 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Sozialversicherungsnummer</th>
                     <th>Accounttyp</th>
+                    <th>Soz.Vers.Nr.</th>
                     <th>Vorname</th>
                     <th>Nachname</th>
                     <th>PLZ</th>
@@ -20,8 +20,8 @@
             <tbody>
                 {% for person in user %}
                 <tr>
-                    <td>{{ person.sozial_vers_nr }}</td>
                     <td>{{ person.type.capitalize() }}</td>
+                    <td>{{ person.sozial_vers_nr }}</td>
                     <td>{{ person.vorname }}</td>
                     <td>{{ person.nachname }}</td>
                     <td>{{ person.plz }}</td>

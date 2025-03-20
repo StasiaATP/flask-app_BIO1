@@ -150,6 +150,12 @@ Die Anwendung läuft nun unter http://127.0.0.1:5000/.
 
 *2.4 Admin-Funktionen:*
 
+- Userdaten anzeigen
+
+- Kurse und Seminare anzeigen
+
+- Organisator anlegen
+
 
 **3. Team & Aufgaben**
 
@@ -217,10 +223,10 @@ Falls du Fragen hast oder dieses Projekt erweitern möchtest, erstelle einfach e
 
 | Benutzername | Passwort | Typ         |
 | ------------ | -------- | ----------- |
-| admin        | adminpass| Administrator|
+| admin        | admin    | Administrator|
 | test         | test     | Teilnehmer  |
-| teilnehmer   | abc      | Teilnehmer  |
+| john         | abc      | Teilnehmer  |
 | hans         | abc      | Ausbilder   |
 | maria        | abc      | Ausbilder   |
 | gerold       | abc      | Ausbilder   |
-| org          | abc      | Organisator |
+| rosa         | abc      | Organisator |
