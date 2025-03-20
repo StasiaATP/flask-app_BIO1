@@ -6,7 +6,7 @@
 
 
 ##  Studienfach: Datenbanksysteme  
-**Team:** Anastasia Ceta, Edit Felföldi, Sabina Raykova, Doris Steinbauer, Nicholas Wedige  
+**Team:** Anastasia Ceta, Edit Felföldi, Sabina Raykova, Doris Steinbauer
 
 ---
 
