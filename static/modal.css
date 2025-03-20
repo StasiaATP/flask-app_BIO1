@@ -123,6 +123,13 @@ h2 {
     text-align: center;
 }
 
+h4 {
+    color: yellow !important;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: center;
+}
+
 label {
     color: #ffcc00 !important;
     font-size: 1rem !important;
@@ -167,7 +174,7 @@ input, select {
     text-align: center;
 }
 
-.reservierungen-container .table {
+.table {
     background-color: #1a0d0d !important;
     color: white !important;
     border-radius: 10px;
@@ -177,12 +184,12 @@ input, select {
 }
 
 
-.reservierungen-container .table thead {
+.table thead {
     background-color: orange !important;
     color: black !important;
 }
 
-.reservierungen-container .table thead th {
+.table thead th {
     padding: 12px;
     font-size: 1.2rem;
     font-weight: bold;
@@ -190,7 +197,7 @@ input, select {
     border-bottom: 3px solid #120200;
 }
 
-.reservierungen-container .table tbody td {
+.table tbody td {
     background-color: #2b1b1b;
     color: white !important;
     padding: 10px;
