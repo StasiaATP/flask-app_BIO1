@@ -92,12 +92,25 @@ flask-app_BIO1/
 
 ```
 
+## Test Zugangsdaten für die App:
+
+| Benutzername | Passwort | Typ         |
+| ------------ | -------- | ----------- |
+| admin        | admin    | Administrator|
+| test         | test     | Teilnehmer  |
+| john         | abc      | Teilnehmer  |
+| hans         | abc      | Ausbilder   |
+| maria        | abc      | Ausbilder   |
+| gerold       | abc      | Ausbilder   |
+| rosa         | abc      | Organisator |
+
+Weitere Test Zugangsdaten befinden sich in db_setup.py.
+
 ## 1. Erste Schritte: Installation & Setup
 
-### 1.1 Klone das Repository:
+### 1.1 Entpacke das zip:
 ```bash
-git clone https://github.com/StasiaATP/flask-app_BIO1
-cd flask-app_BIO1/
+unzip flask-app_BIO1.zip
 ```
 ### 1.2 Erstelle eine virtuelle Umgebung und installiere Abhängigkeiten:
 ```bash
@@ -142,10 +155,12 @@ Die Anwendung läuft nun unter http://127.0.0.1:5000/.
 
 - Neue Seminare erstellen, bearbeiten oder löschen
 
+- Eigene Benutzerdaten verwalten
+
 - Login & Logout
   
 
-*2.3 Organisator-Funktionen:*
+*2.3 Mögliche Organisator-Funktionen (Implementierung noch nicht umgesetzt):*
 
 - Alle Seminare verwalten
 
@@ -160,13 +175,15 @@ Die Anwendung läuft nun unter http://127.0.0.1:5000/.
 
 *2.4 Admin-Funktionen:*
 
-- Userdaten anzeigen und nach Vorname, Nachname, Accouttyp suchen
+- Userdaten anzeigen und nach Vorname, Nachname, Accounttyp suchen
 
 - Alle Kurse und Seminare anzeigen
 
 - Seminarteilnehmer auflisten und Seminar löschen: Hier werden die Ausbilder Routes verwendet. Durch Session Management wird der Zurück-Button korrekt generiert.
 
 - Organisator anlegen (Telefonnummer ist optional wie bei allen Personen)
+
+- Login & Logout
 
 
 **3. Team & Aufgaben**
@@ -176,7 +193,7 @@ Die Anwendung läuft nun unter http://127.0.0.1:5000/.
 | **Anastasia Ceta & Sabina Raykova** | Teilnehmer-Dashboard, Login/Register und Datenverwaltung (common_routes.py), CSS Styling, HTMLs (Teilnehmer und personenbezogenen HTMLs) |
 | **Edit Felföldi**            | Ausbilder-Dashboard, Ausbilder Routes, HTMLs für Ausbilder, Seminarverwaltung |
 | **Nicholas Wedige**          | Organisator-Dashboard, Kursverwaltung, Teilnehmerzahl-Überwachung |
-| **Doris Steinbauer**         | Datenbankstruktur (models.py, db_setup.py), Admin-Dashboard (admin_routes.py), HTMLs für Admin, Anpassungen in CSS, Fehlerbeseitigung |
+| **Doris Steinbauer**         | Datenbankstruktur (models.py, db_setup.py), Admin-Dashboard (admin_routes.py), HTMLs für Administrator, Anpassungen in CSS, Fehlerbeseitigung |
 
 
 **4. 🚀 Lessons Learned & Fazit**
@@ -191,8 +208,8 @@ Die Aufteilung in verschiedene Masken für Teilnehmer, Ausbilder, Organisatoren 
 4.2 CSS war unser "Endgegner"
 Ein einfaches Formular stylen? Kein Problem. Aber eine komplette Anwendung mit mehreren Benutzerrollen, Responsive Design und einer sich ständig ändernden Struktur? CSS-Chaos war vorprogrammiert. Positionierungsprobleme, zerschossene Layouts, überlagerte Dropdowns – wir haben alles gesehen.
 
-4.3 "GitHub-Kriege": Merge-Konflikte & Versionierung
-Mit fünf Personen gleichzeitig an einem Projekt zu arbeiten, war nicht ohne. Pull-Requests, Merge-Konflikte und das ständige Managen von unser einziger main - Branch haben uns gezwungen, besser zu kommunizieren und sauber zu dokumentieren.
+4.3 "GitHub-Kriege": Versionierung und gute Kommunikation
+Mit fünf Personen gleichzeitig an einem Projekt zu arbeiten, war nicht ohne. Pull-Requests und das ständige Managen von unserem einziger main - Branch haben uns gezwungen, besser zu kommunizieren und gut zu dokumentieren. Da wir mit Git nicht vertraut waren, wollten wir Branches möglichst vermeiden. Deswegen haben wir den Code (routes) auf mehrere Dateien aufteilt, die jeder gesondert bearbeiten konnte.
 
 4.4 Flask-Login & Authentifizierung
 Die Implementierung der Login-Logik war schwieriger als erwartet. Besonders tricky:
@@ -223,24 +240,12 @@ Eine frühere Absprache zum Layout und Design hätte uns später viel Zeit gespa
 Unit-Tests für Flask-Routes, Datenbankabfragen und die Authentifizierung hätten geholfen, viele Fehler früh zu entdecken. Ein Ziel für die Zukunft: automatisierte Tests.
 
 5.4 Bessere Dokumentation & Readme-Updates:
-Während der Entwicklung hätten wir uns mehr auf detaillierte Code-Kommentare und eine Entwickler-Dokumentation konzentrieren können. So kann man schneller den Projekt-Überblick bekommen.
+Während der Entwicklung hätten wir uns mehr auf noch detailliertere Code-Kommentare und eine Entwickler-Dokumentation konzentrieren können. So kann man schneller den Projekt-Überblick bekommen.
 
 
 Danke fürs Durchlesen!
 
-Falls du Fragen hast oder dieses Projekt erweitern möchtest, erstelle einfach ein Issue oder einen Pull Request. Viel Spaß beim Entwickeln!
-
 **Happy Coding!**
 
 
-## Test Zugangsdaten für die App:
 
-| Benutzername | Passwort | Typ         |
-| ------------ | -------- | ----------- |
-| admin        | admin    | Administrator|
-| test         | test     | Teilnehmer  |
-| john         | abc      | Teilnehmer  |
-| hans         | abc      | Ausbilder   |
-| maria        | abc      | Ausbilder   |
-| gerold       | abc      | Ausbilder   |
-| rosa         | abc      | Organisator |
