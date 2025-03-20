@@ -44,7 +44,7 @@
 
                     <!-- Falls der Benutzer ein Teilnehmer ist -->
                     {% if current_user.is_authenticated and current_user.type == 'teilnehmer' %}
-                        <li class="nav-item"><a class="nav-link" href="/reserve">Seminare Reservieren</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/reserve">Seminare reservieren</a></li>
                         <li class="nav-item"><a class="nav-link" href="/reservierungen">Meine Reservierungen</a></li>
                     {% endif %}
 

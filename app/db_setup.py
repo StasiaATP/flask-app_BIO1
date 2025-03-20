@@ -199,13 +199,7 @@ def populate_database():
         )
         db.session.add(seminar)
 
-    # Reservierungen:
-    reserviert_data = [
-            (1, 1), # erster user reserviert ersten kurs
-            (1, 7),
-            (1, 17),
-    ]
-
+    # Reservierungen: Jeder Teilnehmer bucht 5 zufällige Kurse
     for kunden_nr in range(1, len(teilnehmer_data)+1):
         for seminar_id in random.sample(range(1, len(seminare_data)+1), 5):
             reservierung = Reserviert(
