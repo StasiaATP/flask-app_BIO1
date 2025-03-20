@@ -150,11 +150,13 @@ Die Anwendung läuft nun unter http://127.0.0.1:5000/.
 
 *2.4 Admin-Funktionen:*
 
-- Userdaten anzeigen
+- Userdaten anzeigen und nach Vorname, Nachname, Accouttyp suchen
 
-- Kurse und Seminare anzeigen
+- Alle Kurse und Seminare anzeigen
 
-- Organisator anlegen
+- Seminarteilnehmer auflisten und Seminar löschen: Hier werden die Ausbilder Routes verwendet. Durch Session Management wird der Zurück-Button korrekt generiert.
+
+- Organisator anlegen (Telefonnummer ist optional wie bei allen Personen)
 
 
 **3. Team & Aufgaben**
@@ -164,7 +166,7 @@ Die Anwendung läuft nun unter http://127.0.0.1:5000/.
 | **Anastasia Ceta & Sabina Raykova** | Teilnehmer-Dashboard, Login/Register und Datenverwaltung (common_routes.py), CSS Styling, HTMLs (Teilnehmer und personenbezogenen HTMLs) |
 | **Edit Felföldi**            | Ausbilder-Dashboard, Ausbilder Routes, HTMLs für Ausbilder, Seminarverwaltung |
 | **Nicholas Wedige**          | Organisator-Dashboard, Kursverwaltung, Teilnehmerzahl-Überwachung |
-| **Doris Steinbauer**         | Datenbankstruktur (models.py, db_setup.py), Fehlerbeseitigung, Admin-Dashboard (admin_routes.py plus HTMLs), Anpassungen in CSS |
+| **Doris Steinbauer**         | Datenbankstruktur (models.py, db_setup.py), Admin-Dashboard (admin_routes.py), HTMLs für Admin, Anpassungen in CSS, Fehlerbeseitigung |
 
 
 **4. 🚀 Lessons Learned & Fazit**
@@ -201,6 +203,7 @@ Beispiele:
     - Maximale Teilnehmerzahl pro Seminar → Reservierungen verhindern, wenn Kurs voll ist;
     - Bevorzugte Ausbilder mit Bewertungen → Teilnehmer könnten ihre Favoriten markieren oder eine z.B Sternebewertung abgeben ...
     - Sicherheitsabfragen → Wenn man die Links/Routes kennt, kann man auf alle Daten zugreifen, weil im Backend nur geprüft wird, ob man eingeloggt ist.
+    - Anpassungen in HTML und CSS → Z. B. wenn mehr Spalten oder längere Namen vorkommen, dass sich die Buttons für Löschen/Ändern nicht verschieben (Layout)
 
 
 5.2 Bessere Planung des CSS-Designs von Anfang an:
